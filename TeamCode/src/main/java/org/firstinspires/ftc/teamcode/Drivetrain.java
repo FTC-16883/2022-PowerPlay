@@ -27,11 +27,11 @@ public class Drivetrain {
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void drive() {
-        frontLeft.setPower(0.5);
-        frontRight.setPower(0.5);
-        backLeft.setPower(0.5);
-        backRight.setPower(0.5);
+    public void drive(double speed) {
+        frontLeft.setPower(speed);
+        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+        backRight.setPower(speed);
     }
 
     public void stop() {
@@ -41,39 +41,35 @@ public class Drivetrain {
         backRight.setPower(0);
     }
 
-    public enum turnDirection {
+    public enum Direction {
         LEFT, RIGHT
     }
 
-    public void turn(int direction) {
-        if (direction == 0) {
-            frontLeft.setPower(-0.5);
-            frontRight.setPower(0.5);
-            backLeft.setPower(-0.5);
-            backRight.setPower(0.5);
-        } else if (direction == 1) {
-            frontLeft.setPower(0.5);
-            frontRight.setPower(-0.5);
-            backLeft.setPower(0.5);
-            backRight.setPower(-0.5);
+    public void turn(Direction direction, double speed) {
+        if (direction == Direction.LEFT) {
+            frontLeft.setPower(-speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(-speed);
+            backRight.setPower(speed);
+        } else if (direction == Direction.RIGHT) {
+            frontLeft.setPower(speed);
+            frontRight.setPower(-speed);
+            backLeft.setPower(speed);
+            backRight.setPower(-speed);
         }
     }
 
-    public enum strafeDirection {
-        LEFT, RIGHT
-    }
-
-    public void strafe(int direction) {
-        if (direction == 0) {
-            frontLeft.setPower(-0.5);
-            frontRight.setPower(0.5);
-            backLeft.setPower(0.5);
-            backRight.setPower(-0.5);
-        } else if (direction == 1) {
-            frontLeft.setPower(0.5);
-            frontRight.setPower(-0.5);
-            backLeft.setPower(-0.5);
-            backRight.setPower(0.5);
+    public void strafe(Direction direction, double speed) {
+        if (direction == Direction.LEFT) {
+            frontLeft.setPower(-speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(speed);
+            backRight.setPower(-speed);
+        } else if (direction == Direction.RIGHT) {
+            frontLeft.setPower(speed);
+            frontRight.setPower(-speed);
+            backLeft.setPower(-speed);
+            backRight.setPower(speed);
         }
     }
 
@@ -94,10 +90,7 @@ public class Drivetrain {
         backRight.setTargetPosition(targetBackRight);
 
         while (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {
-            frontLeft.setPower(0.5);
-            frontRight.setPower(0.5);
-            backLeft.setPower(0.5);
-            backRight.setPower(0.5);
+            drive(0.5);
         }
 
         frontLeft.setPower(0);
