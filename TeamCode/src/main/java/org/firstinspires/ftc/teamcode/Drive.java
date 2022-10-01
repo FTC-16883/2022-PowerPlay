@@ -62,34 +62,40 @@ public class Drive extends LinearOpMode
 
     @Override
     public void runOpMode() throws InterruptedException {
-        drivetrain.forward(true);
+        drivetrain.forward(0.75);
         sleep(1000);
 
         drivetrain.stop();
         sleep(200);
 
-        drivetrain.turning(true);
+        drivetrain.turning(0.75);
         sleep(1000);
 
         drivetrain.stop();
         sleep(200);
 
-        drivetrain.forward(false);
+        drivetrain.forward(-0.75);
         sleep(1000);
 
         drivetrain.stop();
         sleep(200);
 
-        drivetrain.turning(true);
+        drivetrain.turning(-0.75);
         sleep(2000);
 
         drivetrain.stop();
         sleep(200);
+
+        drivetrain.strafe(0.75);
+        sleep(1000);
+
+        drivetrain.stop();
+        sleep(200);
+
+        drivetrain.strafe(-0.75);
+        sleep(1000);
+
+        drivetrain.stop();
+        sleep(200);
     }
-
-
-
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
 }
