@@ -97,5 +97,17 @@ public class Drive extends LinearOpMode
 
         drivetrain.stop();
         sleep(200);
+
+        drivetrain.encoderForward(3);
+        drivetrain.stop();
+
+        drivetrain.encoderForward(-3);
+        drivetrain.stop();
+
+        drivetrain.encoderStrafe(3);
+        drivetrain.stop();
+
+        drivetrain.encoderForward(-3);
+        drivetrain.stop();
     }
 }

@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Drivetrain {
@@ -77,6 +79,11 @@ public class Drivetrain {
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (leftFront.isBusy()) {
+            telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
+            telemetry.update();
+        }
     }
 
     public void encoderStrafe(double inches) {
@@ -93,5 +100,10 @@ public class Drivetrain {
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (leftFront.isBusy()) {
+            telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
+            telemetry.update();
+        }
     }
 }
