@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Drive", group="Android Studio Test")
+@Autonomous(name="Drive", group="Android Studio")
 @Disabled
 public class Drive extends LinearOpMode
 {

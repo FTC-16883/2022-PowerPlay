@@ -27,50 +27,59 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.basic;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Rishi_Test", group="Android Studio")
-public class AutoTest extends LinearOpMode
+import org.firstinspires.ftc.teamcode.Drivetrain;
+
+/**
+ * This file contains an example of an iterative (Non-Linear) "OpMode".
+ * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
+ * The names of OpModes appear on the menu of the FTC Driver Station.
+ * When an selection is made from the menu, the corresponding OpMode
+ * class is instantiated on the Robot Controller and executed.
+ *
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * It includes all the skeletal structure that all iterative OpModes contain.
+ *
+ * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ */
+
+@Autonomous(name="Motor Testing", group="Android Studio Testing")
+@Disabled
+public class TestingRoutine extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private Robot CleoBot = new Robot();
+    private DcMotor leftFront = hardwareMap.dcMotor.get("leftFront");
+    private DcMotor rightFront = hardwareMap.dcMotor.get("rightFront");
+    private DcMotor leftBack = hardwareMap.dcMotor.get("leftBack");
+    private DcMotor rightBack = hardwareMap.dcMotor.get("rightBack");
 
     @Override
     public void runOpMode() throws InterruptedException {
+        leftFront.setPower(1);
+        sleep(1000);
+        leftFront.setPower(0);
 
-        CleoBot.hardwareMap = this.hardwareMap;
-        CleoBot.opMode = this;
-        telemetry.addData("Status", "Initialize");
-        telemetry.update();
+        rightFront.setPower(1);
+        sleep(1000);
+        rightFront.setPower(0);
 
-        CleoBot.Initialize();
-        //Initialize Drive Train Motors.
-        CleoBot.DriveTrainMotor_Init_Encoder();
-        CleoBot.DriveTrainMotor_Reset_Encoder();
-        //CleoBot.DriveTrainMotor_SetRun2Pos();
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        leftBack.setPower(1);
+        sleep(1000);
+        leftBack.setPower(0);
 
-        waitForStart();
-
-        while (opModeIsActive()) {
-
-            //telemetry.addData("Stone Position X", skyStoneDetector.getScreenPosition().x);
-            //telemetry.addData("Stone Position Y", skyStoneDetector.getScreenPosition().y);
-            CleoBot.MoveBot_ForwardUsingGyro(0.3,20,0);
-
-/*
-                CleoBot.MoveBot_Forward(-0.3,
-                        0.3,
-                        -0.3,
-                        0.3,
-                        5,
-                        0);*/
-        }
+        rightBack.setPower(1);
+        sleep(1000);
+        rightBack.setPower(0);
     }
 }
