@@ -32,6 +32,10 @@ public class Drivetrain {
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public boolean isMoving() {
+        return (leftFront.isBusy() || leftRear.isBusy() || rightRear.isBusy() || rightFront.isBusy());
+    }
+
     public void forward(double power) {
             leftRear.setPower(power);
             rightRear.setPower(power);
@@ -73,14 +77,14 @@ public class Drivetrain {
         leftRear.setTargetPosition(ticks);
         rightRear.setTargetPosition(ticks);
 
-        forward(0.75);
-
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (leftFront.isBusy()) {
+        forward(0.75);
+
+        while (isMoving() == true) {
             telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
             telemetry.update();
         }
@@ -94,14 +98,14 @@ public class Drivetrain {
         leftRear.setTargetPosition(-ticks);
         rightRear.setTargetPosition(ticks);
 
-        strafe(0.75);
-
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (leftFront.isBusy()) {
+        strafe(0.75);
+
+        while (isMoving() == true) {
             telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
             telemetry.update();
         }

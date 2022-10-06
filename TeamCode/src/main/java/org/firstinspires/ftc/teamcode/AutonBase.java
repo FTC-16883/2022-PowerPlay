@@ -27,53 +27,45 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.firstinspires.ftc.teamcode.Drivetrain;
 
 /**
- * Demonstrates empty OpMode
+ * @author Akash Sarada (akashsarada)
+ *
+ * This file is a LinearOpMode, A Operation Mode that runs line by Line
+ * When deployed, this class should appear in the "Autonomous" dropdown menu in alphabetical order
+ * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
+ * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
+ * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
+ *
+ * Once copied: Complete the checklist:
+ * TODO: Change the "name" tag to the name of the routine
+ * TODO: Delete the @Disabled tag (will not show up if not removed)
+ * TODO: Change the constructor line to the name of the class (will return error if not completed)
+ * TODO: Delete the TODO's above once completed
  */
-@TeleOp(name = "Concept: NullOp", group = "Concept")
+
+@Autonomous(name="Autonomous Base", group="Android Studio")
 @Disabled
-public class ConceptNullOp extends OpMode {
+public class AutonBase extends LinearOpMode
+{
+    // Declare every variable being used in the program here.
+    private ElapsedTime runtime = new ElapsedTime();
+    private Drivetrain drivetrain = new Drivetrain();
 
-  private ElapsedTime runtime = new ElapsedTime();
+    @Override
+    public void runOpMode() throws InterruptedException {
 
-  @Override
-  public void init() {
-    telemetry.addData("Status", "Initialized");
-  }
+        waitForStart();
 
-  /*
-     * Code to run when the op mode is first enabled goes here
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
-     */
-  @Override
-  public void init_loop() {
-  }
-
-  /*
-   * This method will be called ONCE when start is pressed
-   * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
-   */
-  @Override
-  public void start() {
-    runtime.reset();
-  }
-
-  /*
-   * This method will be called repeatedly in a loop
-   * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
-   */
-  @Override
-  public void loop() {
-    telemetry.addData("Status", "Run Time: " + runtime.toString());
-  }
+    }
 }
