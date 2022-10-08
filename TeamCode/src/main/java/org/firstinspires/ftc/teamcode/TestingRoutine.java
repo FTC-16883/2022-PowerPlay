@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.motors.RevRoboticsUltraPlanetaryHdHexMotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -52,10 +53,10 @@ public class TestingRoutine extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFront = hardwareMap.dcMotor.get("leftFront");
+    private DcMotor leftFront = hardwareMap.dcMotor.get("rightFront");
     private DcMotor rightFront = hardwareMap.dcMotor.get("rightFront");
-    private DcMotor leftBack = hardwareMap.dcMotor.get("leftBack");
-    private DcMotor rightBack = hardwareMap.dcMotor.get("rightBack");
+    private DcMotor leftBack = hardwareMap.dcMotor.get("leftRear");
+    private DcMotor rightBack = hardwareMap.dcMotor.get("rightRear");
 
     @Override
     public void runOpMode() throws InterruptedException {
