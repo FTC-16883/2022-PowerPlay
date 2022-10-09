@@ -75,7 +75,10 @@ public class BlueLeft extends LinearOpMode
         public Drivetrain ;
         drivetrain.encoderForward(48);
         drivetrain.encoderStrafe(36);
-        // Arm coding goes here when we get it.
+        drivetrain.stop();
+        drivetrain.encoderStrafe(-36);
+        drivetrain.encoderForward(-24);
+        
     }
 
 }
