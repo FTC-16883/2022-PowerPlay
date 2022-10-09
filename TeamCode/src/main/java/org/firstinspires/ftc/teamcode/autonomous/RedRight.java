@@ -66,6 +66,7 @@ public class RedRight extends LinearOpMode
 
         drivetrain.encoderForward(48);
         drivetrain.encoderStrafe(36);
+        //arm coding when we get it.
 
 
     }
