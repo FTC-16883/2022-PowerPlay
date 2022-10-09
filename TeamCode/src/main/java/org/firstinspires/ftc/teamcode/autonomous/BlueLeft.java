@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
-public class BlueLeft {
-}
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -75,9 +73,10 @@ public class BlueLeft extends LinearOpMode
         waitForStart();
 
         public Drivetrain ;
-        drivetrain.encoderForward(48);
-        drivetrain.encoderStrafe(36);
-        // Arm coding goes here when we get it.
+        drivetrain.encoderStrafe(72);
+        drivetrain.stop();
+        drivetrain.encoderStrafe(-48);
+
     }
 
 }
