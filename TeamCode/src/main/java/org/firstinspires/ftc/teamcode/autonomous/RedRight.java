@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
-/**
+/*
  * @author Akash Sarada (akashsarada)
  *
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
@@ -64,13 +64,9 @@ public class RedRight extends LinearOpMode
 
         waitForStart();
 
-        drivetrain.encoderForward(48);
-        drivetrain.encoderStrafe(36);
+        public Drivetrain;
+        drivetrain.encoderStrafe(72);
         drivetrain.stop();
-        drivetrain.encoderStrafe(-36);
-        drivetrain.encoderForward(-24);
-        //arm coding when we get it.
-
-
-    }
+        drivetrain.encoderStrafe(-48);
+    }//arm coding when we get it.
 }
