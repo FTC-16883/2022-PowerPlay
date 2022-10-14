@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
@@ -36,17 +37,6 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.autonomous;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Drivetrain;
-
 /**
  * @author Akash Sarada (akashsarada)
  *
@@ -65,16 +55,25 @@ public class BlueLeft extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
-    private Drivetrain drivetrain = new Drivetrain();
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+
+        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         waitForStart();
 
-        drivetrain.encoderForward(72);
-        drivetrain.stop();
-        drivetrain.encoderTurn(90) ;
+        Drivetrain.encoderForward(72);
+        Drivetrain.stop();
+        Drivetrain.encoderTurn(90) ;
 
     }
 
