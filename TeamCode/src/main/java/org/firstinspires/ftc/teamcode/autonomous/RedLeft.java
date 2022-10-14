@@ -52,8 +52,7 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
 
 @Autonomous(name="Redleft", group="Android Studio")
 
-public class Redleft extends LinearOpMode
-{
+public class RedLeft extends LinearOpMode {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
     private Drivetrain drivetrain = new Drivetrain();
@@ -61,11 +60,13 @@ public class Redleft extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException {
 
-        waitForStart()
+        waitForStart();
+
         drivetrain.encoderForward(36);
         drivetrain.stop();
 
         drivetrain.encoderStrafe(-30);
         drivetrain.stop();
 
+    }
 }
