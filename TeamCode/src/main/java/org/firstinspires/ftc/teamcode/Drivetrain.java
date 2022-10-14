@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.libs.Telemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Drivetrain {
     public static DcMotorEx leftFront;
@@ -15,8 +15,8 @@ public class Drivetrain {
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
 
-    private static final int ticksToWheelRevolution = 1680;
-    private static final int wheelRevolutionDistanceInches = 3; // Can be 2.95 inches
+    private static final int ticksToWheelRevolution = 1600;
+    private static final double wheelRevolutionDistanceInches = 10; // Can be 2.95 inches
 
     public Drivetrain() {
     }

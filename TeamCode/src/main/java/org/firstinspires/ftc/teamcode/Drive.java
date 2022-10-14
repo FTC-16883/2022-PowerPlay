@@ -70,40 +70,7 @@ public class Drive extends LinearOpMode
 
         waitForStart();
 
-        Drivetrain.forward(0.75);
-        sleep(1000);
-
+        Drivetrain.encoderForward(3);
         Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.turn(0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.forward(-0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.turn(-0.75);
-        sleep(2000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.strafe(0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.strafe(-0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
     }
 }

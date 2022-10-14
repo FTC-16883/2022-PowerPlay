@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -68,6 +70,9 @@ public class BlueLeft extends LinearOpMode
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
 
