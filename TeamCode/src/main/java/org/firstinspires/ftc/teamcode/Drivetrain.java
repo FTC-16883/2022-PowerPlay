@@ -109,6 +109,29 @@ public class Drivetrain {
 
         while (isMoving() == true) {
 //            Telemetry.updateDrivetrainEncoders();
+
+        }
+
+    }
+
+    public static void encoderTurn(double degrees) {
+        int ticks = (int) degrees * 1000;
+
+        leftFront.setTargetPosition(ticks);
+        rightRear.setTargetPosition(ticks);
+        rightFront.setTargetPosition(-ticks);
+        leftRear.setTargetPosition(-ticks);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        turn(0.5);
+
+        while (isMoving() == true) {
+//            Telemetry.updateDrivetrainEncoders();
+
         }
     }
 }
