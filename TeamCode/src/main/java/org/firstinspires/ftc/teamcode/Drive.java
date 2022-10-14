@@ -34,9 +34,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
+import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 /**
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
@@ -51,58 +53,57 @@ public class Drive extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private Drivetrain drivetrain = new Drivetrain();
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+
+        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
+//        Telemetry.init();
+
         waitForStart();
 
-        drivetrain.forward(0.75);
+        Drivetrain.forward(0.75);
         sleep(1000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
 
-        drivetrain.turning(0.75);
+        Drivetrain.turn(0.75);
         sleep(1000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
 
-        drivetrain.forward(-0.75);
+        Drivetrain.forward(-0.75);
         sleep(1000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
 
-        drivetrain.turning(-0.75);
+        Drivetrain.turn(-0.75);
         sleep(2000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
 
-        drivetrain.strafe(0.75);
+        Drivetrain.strafe(0.75);
         sleep(1000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
 
-        drivetrain.strafe(-0.75);
+        Drivetrain.strafe(-0.75);
         sleep(1000);
 
-        drivetrain.stop();
+        Drivetrain.stop();
         sleep(200);
-
-        drivetrain.encoderForward(3);
-        drivetrain.stop();
-
-        drivetrain.encoderForward(-3);
-        drivetrain.stop();
-
-        drivetrain.encoderStrafe(3);
-        drivetrain.stop();
-
-        drivetrain.encoderForward(-3);
-        drivetrain.stop();
     }
 }
