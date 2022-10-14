@@ -29,28 +29,33 @@
 
 package org.firstinspires.ftc.teamcode;
 
+
+import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
+import org.openftc.easyopencv.PipelineRecordingParameters;
+
 
 /**
  * @author Akash Sarada (akashsarada)
  *
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
- * When deployed, this class should appear in the "Autonomous" dropdown menu in alphabetical order
- * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
- * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
+ * When deployed, this class should appear in the "Autonomous" dropdown menu in alphahe "runOpMode" method
+ * After the "INIT" button is pressed, all the code before the "waitForStbetical order
+ *  *  * When the class is selected, the classes is loaded with all the code before tart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  */
 
 @TeleOp(name="TeleOp", group="Android Studio")
-public class Controller extends LinearOpMode
-{
+public class Controller extends LinearOpMode {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
     private Drivetrain drivetrain = new Drivetrain();
@@ -61,8 +66,13 @@ public class Controller extends LinearOpMode
         waitForStart();
 
         while (opModeIsActive()) {
-            
-        }
+            drivetrain.forward(gamepad1.left_stick_y);
+            drivetrain.strafe(gamepad1.left_stick_x);
+            drivetrain.turn(gamepad1.right_stick_x);
+            {
 
+                }
+            }
+        }
     }
 }
