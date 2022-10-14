@@ -72,10 +72,9 @@ public class BlueLeft extends LinearOpMode
 
         waitForStart();
 
-        public Drivetrain ;
-        drivetrain.encoderStrafe(72);
+        drivetrain.encoderForward(72);
         drivetrain.stop();
-        drivetrain.encoderStrafe(-48);
+        drivetrain.turning();
 
     }
 
