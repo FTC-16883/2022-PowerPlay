@@ -34,11 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
-import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 /**
  * @author Akash Sarada (akashsarada)
@@ -49,36 +47,26 @@ import org.firstinspires.ftc.teamcode.libs.Telemetry;
  * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  *
- * Once copied: Complete the checklist:
- * TODO: Change the "name" tag to the name of the routine
- * TODO: Delete the @Disabled tag (will not show up if not removed)
- * TODO: Change the constructor line to the name of the class (will return error if not completed)
- * TODO: Delete the TODO's above once completed
+ *
  */
 
-@Autonomous(name="Autonomous Base", group="Android Studio")
-@Disabled
-public class AutonBase extends LinearOpMode
-{
+@Autonomous(name="Redleft", group="Android Studio")
+
+public class RedLeft extends LinearOpMode {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
-    public static DcMotorEx leftFront;
-    public static DcMotorEx rightFront;
-    public static DcMotorEx leftRear;
-    public static DcMotorEx rightRear;
+    private Drivetrain drivetrain = new Drivetrain();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
-
-        telemetry.addData("Status", "Initialized");
         waitForStart();
 
+        drivetrain.encoderForward(36);
+        drivetrain.stop();
+
+        drivetrain.encoderStrafe(-30);
+        drivetrain.stop();
 
     }
 }

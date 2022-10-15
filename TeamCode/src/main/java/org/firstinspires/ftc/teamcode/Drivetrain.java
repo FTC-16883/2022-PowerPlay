@@ -3,23 +3,32 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 public class Drivetrain {
-    DcMotor leftRear;
-    DcMotor rightRear;
-    DcMotor leftFront;
-    DcMotor rightFront;
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
 
-    int ticksToWheelRevolution = 1680;
-    int wheelRevolutionDistanceInches = 3; // Can be 2.95 inches
+    private static final int ticksToWheelRevolution = 1680;
+    private static final int wheelRevolutionDistanceInches = 3; // Can be 2.95 inches
 
     public Drivetrain() {
-        leftRear = hardwareMap.dcMotor.get("leftRear");
-        rightRear = hardwareMap.dcMotor.get("rightRear");
-        rightFront = hardwareMap.dcMotor.get("rightFront");
-        leftFront = hardwareMap.dcMotor.get("leftFront");
+    }
+
+    public static void init(DcMotorEx leftFront, DcMotorEx rightFront, DcMotorEx leftRear, DcMotorEx rightRear) {
+        Drivetrain.leftFront = leftFront;
+        Drivetrain.rightFront = rightFront;
+        Drivetrain.leftRear = leftRear;
+        Drivetrain.rightRear = rightRear;
+
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -31,45 +40,39 @@ public class Drivetrain {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
-    public boolean isMoving() {
+    public static boolean isMoving() {
         return (leftFront.isBusy() || leftRear.isBusy() || rightRear.isBusy() || rightFront.isBusy());
     }
 
-    public void forward(double power) {
+    public static void forward(double power) {
             leftRear.setPower(power);
             rightRear.setPower(power);
             rightFront.setPower(power);
             leftFront.setPower(power);
     }
 
-    public void turning(double power) {
+    public static void strafe(double power) {
             leftRear.setPower(-power);
             rightRear.setPower(power);
             leftFront.setPower(-power);
             rightFront.setPower(power);
     }
 
-    public void stop() {
+    public static void stop() {
         leftRear.setPower(0);
         rightRear.setPower(0);
         leftFront.setPower(0);
         rightFront.setPower(0);
-
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void strafe(double power) {
+    public static void turn(double power) {
             leftFront.setPower(power);
             rightRear.setPower(power);
             rightFront.setPower(-power);
             leftRear.setPower(-power);
     }
 
-    public void encoderForward(double inches) {
+    public static void encoderForward(double inches) {
         int ticks = (int) (inches / wheelRevolutionDistanceInches) * ticksToWheelRevolution;
 
         leftFront.setTargetPosition(ticks);
@@ -85,12 +88,11 @@ public class Drivetrain {
         forward(0.75);
 
         while (isMoving() == true) {
-            telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
-            telemetry.update();
+//            Telemetry.updateDrivetrainEncoders();
         }
     }
 
-    public void encoderStrafe(double inches) {
+    public static void encoderStrafe(double inches) {
         int ticks = (int) (inches / wheelRevolutionDistanceInches) * ticksToWheelRevolution;
 
         leftFront.setTargetPosition(ticks);
@@ -106,8 +108,30 @@ public class Drivetrain {
         strafe(0.75);
 
         while (isMoving() == true) {
-            telemetry.addData("Left Front Encoder", leftFront.getCurrentPosition());
-            telemetry.update();
+//            Telemetry.updateDrivetrainEncoders();
+
+        }
+
+    }
+
+    public static void encoderTurn(double degrees) {
+        int ticks = (int) degrees * 1000;
+
+        leftFront.setTargetPosition(ticks);
+        rightRear.setTargetPosition(ticks);
+        rightFront.setTargetPosition(-ticks);
+        leftRear.setTargetPosition(-ticks);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        turn(0.5);
+
+        while (isMoving() == true) {
+//            Telemetry.updateDrivetrainEncoders();
+
         }
     }
 }
