@@ -79,6 +79,29 @@ public class BlueLeft extends LinearOpMode
         Drivetrain.encoderForward(72);
         Drivetrain.stop();
         Drivetrain.encoderTurn(90) ;
+        //Wait two second here
+        Drivetrain.encoderTurn(90);
+
+        //Parking spot 3
+        Drivetrain.encoderStrafe(-24);
+        Drivetrain.encoderForward(24);
+        Drivetrain.stop();
+        Drivetrain.encoderForward(-24);
+        Drivetrain.encoderStrafe(24);
+
+        //Parking spot 2
+        Drivetrain.encoderForward(24);
+        Drivetrain.stop();
+        Drivetrain.encoderForward(-24);
+
+        //Parking spot 1
+        Drivetrain.encoderStrafe(24);
+        Drivetrain.encoderForward(24);
+        Drivetrain.stop();
+        Drivetrain.encoderForward(-24);
+        Drivetrain.encoderStrafe(-24);
+
+
 
     }
 
