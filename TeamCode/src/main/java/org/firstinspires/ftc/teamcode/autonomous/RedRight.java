@@ -72,11 +72,31 @@ public class RedRight extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+
+
+
+
+        sleep(2000)
         waitForStart();
 
-        Drivetrain.encoderStrafe(72);
+        Drivetrain.encoderForward(72);
         Drivetrain.stop();
-        Drivetrain.encoderStrafe(-48);
+        Drivetrain.encoderStrafe(24);
+
+
+        Drivetrain.encoderTurn(90);
+        Drivetrain.encoderForward(21);
+        sleep(1000);
+        //scan
+        Drivetrain.encoderTurn(90);
+        Drivetrain.encoderForward(24);
+        //scan
+        Drivetrain.encoderForward(-48);
+        //scan
+
         
     }
 }
