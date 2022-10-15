@@ -65,8 +65,24 @@ public class blueRight extends LinearOpMode
         drivetrain.encoderForward(48);
         drivetrain.stop();
 
-        drivetrain.encoderStrafe(-36);
-        drivetrain.stop();
+        drivetrain.encoderStrafe(-12);
+
+        sleep(2000);
+
+        drivetrain.encoderStrafe(-12);
+
+        drivetrain.encoderForward(-12);
+
+        sleep(2000)
+
+        drivetrain.encoderStrafe(24);
+
+        sleep(2000)
+
+        drivetrain.encoderStrafe(24);
+
+        sleep(2000)
+
 
 
     }
