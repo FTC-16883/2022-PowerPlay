@@ -41,7 +41,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
-import org.openftc.easyopencv.PipelineRecordingParameters;
 
 
 /**
@@ -69,10 +68,9 @@ public class Controller extends LinearOpMode {
             drivetrain.forward(gamepad1.left_stick_y);
             drivetrain.strafe(gamepad1.left_stick_x);
             drivetrain.turn(gamepad1.right_stick_x);
-            {
-
-                }
-            }
         }
+
     }
 }
+
+
