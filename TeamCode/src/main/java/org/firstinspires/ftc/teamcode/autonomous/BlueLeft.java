@@ -74,6 +74,10 @@ public class BlueLeft extends LinearOpMode
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        final int ticksToWheelRevolution = 1600;
+        final double wheelRevolutionDistanceInches = 10; // Can be 2.95 inches
+        final double degreesperinch = 0.105; // Can be 2.95 inches
+
         waitForStart();
 
         Drivetrain.encoderForward(72);
@@ -90,7 +94,7 @@ public class BlueLeft extends LinearOpMode
         Drivetrain.encoderForward(-24);
         Drivetrain.encoderStrafe(24);
 
-        //Parking spot 2
+        //Parking spot 2.00.
         Drivetrain.encoderForward(24);
         sleep(1000);
         Drivetrain.encoderForward(-24);
