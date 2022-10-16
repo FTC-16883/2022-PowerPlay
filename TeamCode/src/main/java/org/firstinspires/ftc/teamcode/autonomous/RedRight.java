@@ -79,13 +79,13 @@ public class RedRight extends LinearOpMode
 
 
 
-        sleep(2000)
+        sleep(2000);
         waitForStart();
 
+        Drivetrain.encoderTurn(90);
         Drivetrain.encoderForward(72);
         Drivetrain.stop();
         Drivetrain.encoderStrafe(24);
-
 
         Drivetrain.encoderTurn(90);
         Drivetrain.encoderForward(21);
