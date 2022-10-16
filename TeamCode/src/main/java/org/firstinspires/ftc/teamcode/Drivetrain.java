@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.libs.Telemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Drivetrain {
     public static DcMotorEx leftFront;
@@ -15,8 +15,9 @@ public class Drivetrain {
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
 
-    private static final int ticksToWheelRevolution = 1680;
-    private static final int wheelRevolutionDistanceInches = 3; // Can be 2.95 inches
+    private static final int ticksToWheelRevolution = 1600;
+    private static final double wheelRevolutionDistanceInches = 10;
+    private static final double degreesperinch = 0.105;
 
     public Drivetrain() {
     }
@@ -40,22 +41,23 @@ public class Drivetrain {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public static boolean isMoving() {
         return (leftFront.isBusy() || leftRear.isBusy() || rightRear.isBusy() || rightFront.isBusy());
     }
 
     public static void forward(double power) {
-            leftRear.setPower(power);
-            rightRear.setPower(power);
-            rightFront.setPower(power);
-            leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(power);
+        rightFront.setPower(power);
+        leftFront.setPower(power);
     }
 
     public static void strafe(double power) {
-            leftRear.setPower(-power);
-            rightRear.setPower(power);
-            leftFront.setPower(-power);
-            rightFront.setPower(power);
+        leftRear.setPower(-power);
+        rightRear.setPower(power);
+        leftFront.setPower(-power);
+        rightFront.setPower(power);
     }
 
     public static void stop() {
@@ -66,14 +68,19 @@ public class Drivetrain {
     }
 
     public static void turn(double power) {
-            leftFront.setPower(power);
-            rightRear.setPower(power);
-            rightFront.setPower(-power);
-            leftRear.setPower(-power);
+        leftFront.setPower(power);
+        rightRear.setPower(power);
+        rightFront.setPower(-power);
+        leftRear.setPower(-power);
     }
 
     public static void encoderForward(double inches) {
         int ticks = (int) (inches / wheelRevolutionDistanceInches) * ticksToWheelRevolution;
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(ticks);
@@ -95,9 +102,14 @@ public class Drivetrain {
     public static void encoderStrafe(double inches) {
         int ticks = (int) (inches / wheelRevolutionDistanceInches) * ticksToWheelRevolution;
 
-        leftFront.setTargetPosition(ticks);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(-ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(-ticks);
+        leftRear.setTargetPosition(ticks);
         rightRear.setTargetPosition(ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -111,16 +123,21 @@ public class Drivetrain {
 //            Telemetry.updateDrivetrainEncoders();
 
         }
-
     }
 
+
     public static void encoderTurn(double degrees) {
-        int ticks = (int) degrees * 1000;
+        int ticks = (int) (((degrees * degreesperinch) / wheelRevolutionDistanceInches) * ticksToWheelRevolution);
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftFront.setTargetPosition(ticks);
-        rightRear.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
         leftRear.setTargetPosition(-ticks);
+        rightRear.setTargetPosition(ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
