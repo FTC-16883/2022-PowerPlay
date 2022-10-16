@@ -115,7 +115,11 @@ public class Drivetrain {
     }
 
     public static void encoderTurn(double degrees) {
-        int ticks = (int) degrees * 1000;
+<<<<<<< HEAD
+        int ticks = (int) degrees * 13;
+=======
+        int ticks = (int) degrees * 10;
+>>>>>>> 72
 
         leftFront.setTargetPosition(ticks);
         rightRear.setTargetPosition(ticks);
