@@ -68,6 +68,8 @@ public class Controller extends LinearOpMode {
             drivetrain.forward(gamepad1.left_stick_y);
             drivetrain.strafe(gamepad1.left_stick_x);
             drivetrain.turn(gamepad1.right_stick_x);
+            // Makes gamepad1 sticks correlate to different functions. like strafing, turning and going forward
+
         }
 
     }
