@@ -17,6 +17,7 @@ public class Drivetrain {
 
     private static final int ticksToWheelRevolution = 1600;
     private static final double wheelRevolutionDistanceInches = 10; // Can be 2.95 inches
+    private static final double degreesperinch = 0.105; // Can be 2.95 inches
 
     public Drivetrain() {
     }
@@ -111,16 +112,23 @@ public class Drivetrain {
 //            Telemetry.updateDrivetrainEncoders();
 
         }
-
     }
 
-    public static void encoderTurn(double degrees) {
-        int ticks = (int) degrees * 10;
 
-        leftFront.setTargetPosition(ticks);
-        rightRear.setTargetPosition(ticks);
-        rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(-ticks);
+
+
+    public static void encoderTurn(double degrees) {
+        int ticks1 = (int) (((degrees * degreesperinch )/ wheelRevolutionDistanceInches) * ticksToWheelRevolution);
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(ticks1);
+        rightFront.setTargetPosition(-ticks1);
+        leftRear.setTargetPosition(-ticks1);
+        rightRear.setTargetPosition(ticks1);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -135,3 +143,7 @@ public class Drivetrain {
         }
     }
 }
+
+
+
+
