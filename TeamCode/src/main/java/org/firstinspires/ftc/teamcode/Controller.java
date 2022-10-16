@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -49,7 +50,7 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
  * When deployed, this class should appear in the "Autonomous" dropdown menu in alphahe "runOpMode" method
  * After the "INIT" button is pressed, all the code before the "waitForStbetical order
- *  *  * When the class is selected, the classes is loaded with all the code before tart()" function is ran
+ * When the class is selected, the classes is loaded with all the code before tart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  */
 
@@ -57,17 +58,26 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
 public class Controller extends LinearOpMode {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
-    private Drivetrain drivetrain = new Drivetrain();
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+
+        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         waitForStart();
 
         while (opModeIsActive()) {
-            drivetrain.forward(gamepad1.left_stick_y);
-            drivetrain.strafe(gamepad1.left_stick_x);
-            drivetrain.turn(gamepad1.right_stick_x);
+            Drivetrain.forward(gamepad1.left_stick_y);
+            Drivetrain.strafe(gamepad1.left_stick_x);
+            Drivetrain.turn(gamepad1.right_stick_x);
             // Makes gamepad1 sticks correlate to different functions. like strafing, turning and going forward
 
         }
