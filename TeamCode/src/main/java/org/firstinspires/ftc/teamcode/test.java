@@ -97,6 +97,8 @@ public class test extends LinearOpMode
             telemetry.addData("Status", "Running");
             telemetry.addData("Arm Position", arm.getCurrentPosition());
             telemetry.update();
+
+            arm.setPower(gamepad1.left_stick_y);
         }
     }
 }
