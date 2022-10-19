@@ -46,7 +46,7 @@ import org.firstinspires.ftc.teamcode.libs.Telemetry;
  * @author Akash Sarada (akashsarada)
  *
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
- * When deployed, this class should appear in the "Autonomous" dropdown menu in alphabetical order
+ * When deployed, this class should appear in the "TeleOp" dropdown menu in alphabetical order
  * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
  * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
@@ -61,7 +61,8 @@ public class test extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
-    public static DcMotorEx arm;
+    public static DcMotorEx armLeft;
+    public static DcMotorEx armRight;
     public static Servo clawLeft;
     public static Servo clawRight;
 
@@ -74,11 +75,12 @@ public class test extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
         clawLeft = hardwareMap.get(Servo.class, "clawLeft");
         clawRight = hardwareMap.get(Servo.class, "clawRight");
 
-        Arm.init(arm, clawLeft, clawRight);
+        Arm.init(armLeft, armRight, clawLeft, clawRight);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -88,10 +90,11 @@ public class test extends LinearOpMode
 
         while (opModeIsActive()) {
             telemetry.addData("Status", "Running");
-            telemetry.addData("Arm Position", arm.getCurrentPosition());
+            telemetry.addData("Arm Left Position", armLeft.getCurrentPosition());
+            telemetry.addData("Arm Right Position", armRight.getCurrentPosition());
             telemetry.update();
 
-            arm.setPower(gamepad1.left_stick_y);
+            Arm.setPower(gamepad1.left_stick_y);
         }
     }
 }
