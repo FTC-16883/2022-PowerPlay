@@ -50,16 +50,9 @@ import org.firstinspires.ftc.teamcode.libs.Telemetry;
  * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
  * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
- *
- * Once copied: Complete the checklist:
- * TODO: Change the "name" tag to the name of the routine
- * TODO: Delete the @Disabled tag (will not show up if not removed)
- * TODO: Change the constructor line to the name of the class (will return error if not completed)
- * TODO: Delete the TODO's above once completed
  */
 
 @TeleOp(name="Test", group="Android Studio")
-@Disabled
 public class test extends LinearOpMode
 {
     // Declare every variable being used in the program here.
