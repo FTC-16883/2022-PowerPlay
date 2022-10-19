@@ -68,7 +68,8 @@ public class AutonBase extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
-    public static DcMotorEx arm;
+    public static DcMotorEx armLeft;
+    public static DcMotorEx armRight;
     public static Servo clawLeft;
     public static Servo clawRight;
 
@@ -81,11 +82,18 @@ public class AutonBase extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
         clawLeft = hardwareMap.get(Servo.class, "clawLeft");
         clawRight = hardwareMap.get(Servo.class, "clawRight");
 
-        Arm.init(arm, clawLeft, clawRight);
+        Arm.init(armLeft, armRight, clawLeft, clawRight);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
