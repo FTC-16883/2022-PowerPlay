@@ -35,8 +35,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
 import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
@@ -66,6 +68,9 @@ public class AutonBase extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
+    public static DcMotorEx arm;
+    public static Servo clawLeft;
+    public static Servo clawRight;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -76,9 +81,17 @@ public class AutonBase extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        telemetry.addData("Status", "Initialized");
-        waitForStart();
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
+        clawRight = hardwareMap.get(Servo.class, "clawRight");
 
+        Arm.init(arm, clawLeft, clawRight);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
 
     }
 }
