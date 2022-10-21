@@ -1,61 +1,14 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-/**
- * @author Akash Sarada (akashsarada)
- *
- * This file is a LinearOpMode, A Operation Mode that runs line by Line
- * When deployed, this class should appear in the "Autonomous" dropdown menu in alphabetical order
- * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
- * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
- * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
- *
- * Once copied: Complete the checklist:
- *
- */
-
-@Autonomous(name="BlueLeft", group="Android Studio")
-public class BlueLeft extends LinearOpMode
+public class BlueLeft {@Autonomous(name="Blueleft", group="Android Studio")
+public static class RedRight extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
@@ -76,116 +29,31 @@ public class BlueLeft extends LinearOpMode
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        final int ticksToWheelRevolution = 1600;
-        final double wheelRevolutionDistanceInches = 10; // Can be 2.95 inches
-        final double degreesperinch = 0.105; // Can be 2.95 inches
-
         waitForStart();
 
-        Drivetrain.encoderForward(72);
+        Drivetrain.encoderForward(80);
+        Drivetrain.encoderTurn(90);
+        //arm coding
+        sleep(2000);
+
+        Drivetrain.encoderTurn(90);
+        Drivetrain.encoderForward(36);
         sleep(1000);
-        Drivetrain.encoderTurn(-90) ;
+
+        //scan
+        Drivetrain.encoderStrafe(28);
+        sleep(1000);
+
+        //scan
+        Drivetrain.encoderStrafe(-56);
+        sleep(1000);
+
+        //scan
         Drivetrain.stop();
-        Drivetrain.encoderTurn(-90);
-        Drivetrain.stop();
 
-        //Parking spot 3
-        Drivetrain.encoderStrafe(-24);
-        Drivetrain.encoderForward(24);
-        sleep(1000);
-        Drivetrain.encoderForward(-24);
-        Drivetrain.encoderStrafe(24);
-
-        //Parking spot 2.00.
-        Drivetrain.encoderForward(24);
-        sleep(1000);
-        Drivetrain.encoderForward(-24);
-
-        //Parking spot 1
-        Drivetrain.encoderStrafe(24);
-        Drivetrain.encoderForward(24);
-        sleep(1000);
-        Drivetrain.encoderForward(-24);
-        Drivetrain.encoderStrafe(-24);
-
-
-         class Arm {
-            public DcMotorEx arm;
-            public  Servo clawLeft;
-            public  Servo clawRight;
-
-            public Arm() {
-
-            }
-
-            public static void init(DcMotorEx arm, Servo clawLeft, Servo clawRight) {
-                org.firstinspires.ftc.teamcode.Arm.arm = arm;
-                org.firstinspires.ftc.teamcode.Arm.clawLeft = clawLeft;
-                org.firstinspires.ftc.teamcode.Arm.clawRight = clawRight;
-
-                clawRight.setDirection(Servo.Direction.REVERSE);
-            }
-
-            public static void openClaw() {
-                clawLeft.setPosition(0);
-                clawRight.setPosition(0);
-            }
-
-            public static void closeClaw() {
-                clawLeft.setPosition(1);
-                clawRight.setPosition(1);
-            }
-
-            public static void armFloor() {
-                arm.setTargetPosition(0);
-
-                arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-                arm.setPower(1);
-
-                while (arm.isBusy()) {
-                    //Telemetry.updateArmEncoder();
-                }
-            }
-
-            public static void armLow() {
-                arm.setTargetPosition(1000);
-
-                arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-                arm.setPower(1);
-
-                while (arm.isBusy()) {
-                    //Telemetry.updateArmEncoder();
-                }
-            }
-
-            public static void armMedium() {
-                arm.setTargetPosition(2000);
-
-                arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-                arm.setPower(1);
-
-                while (arm.isBusy()) {
-                    //Telemetry.updateArmEncoder();
-                }
-            }
-
-            public static void armHigh() {
-                arm.setTargetPosition(3000);
-
-                arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-                arm.setPower(1);
-
-                while (arm.isBusy()) {
-                    //Telemetry.updateArmEncoder();
-                }
-            }
-        }
 
 
     }
+}
 
 }

@@ -53,7 +53,6 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  */
 
 @Autonomous(name="RedRight", group="Android Studio")
-
 public class RedRight extends LinearOpMode
 {
     // Declare every variable being used in the program here.
