@@ -31,8 +31,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -48,11 +50,13 @@ public class TestingRoutine extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotorEx leftFront;
-    private DcMotorEx rightFront;
-    private DcMotorEx leftRear;
-    private DcMotorEx rightRear;
-    private Drivetrain drivetrain;
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
+    public static DcMotor armRight;
+    public static DcMotor armLeft;
+    public static Servo claw;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,26 +65,20 @@ public class TestingRoutine extends LinearOpMode
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-//        Telemetry.init();
+        armLeft = hardwareMap.get(DcMotor.class, "left");
+        armRight = hardwareMap.get(DcMotor.class, "right");
+        claw = hardwareMap.get(Servo.class, "claw");
+
+        Arm.init(armRight, armLeft, claw);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
         waitForStart();
 
-        leftFront.setPower(1);
-        sleep(1000);
-        leftFront.setPower(0);
+        Arm.armLow();
 
-        rightFront.setPower(1);
-        sleep(1000);
-        rightFront.setPower(0);
 
-        leftRear.setPower(1);
-        sleep(1000);
-        leftRear.setPower(0);
-
-        rightRear.setPower(1);
-        sleep(1000);
-        rightRear.setPower(0);
     }
 }
