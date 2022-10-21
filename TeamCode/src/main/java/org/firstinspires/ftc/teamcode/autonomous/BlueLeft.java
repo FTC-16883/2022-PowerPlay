@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
-public class BlueLeft {@Autonomous(name="Blueleft", group="Android Studio")
+public class BlueLeft {@Autonomous(name="BlueLeft", group="Android Studio")
 public static class RedRight extends LinearOpMode
 {
     // Declare every variable being used in the program here.
