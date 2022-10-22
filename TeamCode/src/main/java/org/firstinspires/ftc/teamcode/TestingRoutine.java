@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -45,7 +46,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  */
 
-@Autonomous(name="Motor Testing", group="Android Studio Testing")
+@TeleOp(name="Motor Testing", group="Android Studio Testing")
 public class TestingRoutine extends LinearOpMode
 {
     // Declare OpMode members.
@@ -57,6 +58,8 @@ public class TestingRoutine extends LinearOpMode
     public static DcMotor armRight;
     public static DcMotor armLeft;
     public static Servo claw;
+    public static Servo wrist;
+    public static double power;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -70,14 +73,21 @@ public class TestingRoutine extends LinearOpMode
         armLeft = hardwareMap.get(DcMotor.class, "left");
         armRight = hardwareMap.get(DcMotor.class, "right");
         claw = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armRight, armLeft, claw);
+        Arm.init(armRight, armLeft, claw, wrist);
+
+        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
         waitForStart();
 
-        Arm.armLow();
 
 
     }

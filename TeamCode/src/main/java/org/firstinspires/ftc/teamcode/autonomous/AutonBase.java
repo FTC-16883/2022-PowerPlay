@@ -71,6 +71,7 @@ public class AutonBase extends LinearOpMode
     public static DcMotorEx armRight;
     public static DcMotorEx armLeft;
     public static Servo claw;
+    public static Servo wrist;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -84,8 +85,9 @@ public class AutonBase extends LinearOpMode
         armLeft = hardwareMap.get(DcMotorEx.class, "left");
         armRight = hardwareMap.get(DcMotorEx.class, "right");
         claw = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armRight, armLeft, claw);
+        Arm.init(armRight, armLeft, claw, wrist);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
