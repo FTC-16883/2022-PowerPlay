@@ -75,9 +75,10 @@ public class Controller extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            Drivetrain.forward(gamepad1.left_stick_y);
-            Drivetrain.strafe(gamepad1.left_stick_x);
-            Drivetrain.turn(gamepad1.right_stick_x);
+            leftFront.setPower((gamepad1.right_stick_y) + (gamepad1.right_stick_x) - (gamepad1.left_stick_x));
+            rightFront.setPower((gamepad1.right_stick_y) - (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            leftRear.setPower((gamepad1.right_stick_y) + (gamepad1.right_stick_x) - (gamepad1.left_stick_x));
+            rightRear.setPower((gamepad1.right_stick_y) - (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
             // Makes gamepad1 sticks correlate to different functions. like strafing, turning and going forward
 
         }
