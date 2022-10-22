@@ -82,15 +82,15 @@ public class RedRight extends LinearOpMode
         sleep(2000);
 
         Drivetrain.encoderTurn(90);
-        Drivetrain.encoderForward(36);
+        Drivetrain.encoderForward(28);
         sleep(1000);
 
         //scan
-        Drivetrain.encoderStrafe(28);
+        Drivetrain.encoderStrafe(24);
         sleep(1000);
 
         //scan
-        Drivetrain.encoderStrafe(-56);
+        Drivetrain.encoderStrafe(-48);
         sleep(1000);
 
         //scan
