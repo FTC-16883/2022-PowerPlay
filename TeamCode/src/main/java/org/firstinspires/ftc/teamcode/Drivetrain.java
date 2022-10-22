@@ -17,7 +17,7 @@ public class Drivetrain {
 
     private static final int ticksToWheelRevolution = 1600;
     private static final double wheelRevolutionDistanceInches = 10;
-    private static final double degreesperinch = 0.105;
+    private static final double degreesperinch = 0.11;
 
     public Drivetrain() {
     }

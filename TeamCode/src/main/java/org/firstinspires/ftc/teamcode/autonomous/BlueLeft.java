@@ -31,7 +31,7 @@ public static class RedRight extends LinearOpMode
 
         waitForStart();
 
-        Drivetrain.encoderForward(80);
+        Drivetrain.encoderForward(73);
         Drivetrain.encoderTurn(90);
         //arm coding
         sleep(2000);
