@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
-public class BlueLeft {@Autonomous(name="BlueLeft", group="Android Studio")
+public class RedLeft {@Autonomous(name="RedLeft", group="Android Studio")
 public static class RedRight extends LinearOpMode
 {
     // Declare every variable being used in the program here.
@@ -32,36 +32,30 @@ public static class RedRight extends LinearOpMode
         waitForStart();
 
         Drivetrain.encoderForward(73);
-        Drivetrain.encoderTurn(92);
+        Drivetrain.encoderTurn(-92);
         //arm coding
         sleep(2000);
 
-        Drivetrain.encoderTurn(92);
+        Drivetrain.encoderTurn(-92);
         Drivetrain.encoderForward(36);
         sleep(1000);
 
-        boolean one;
-        if( one = true);
-        {
-            Drivetrain.encoderStrafe(24);
-            sleep(1000);
+        //scan
+        Drivetrain.encoderStrafe(-28);
+        sleep(1000);
 
-        }
-        boolean two;
-         if (two = true);
-        {
-            sleep(1000);
-        }
+        //scan
+        Drivetrain.encoderStrafe(56);
+        sleep(1000);
 
-        boolean three;
-        {
-            if (three = true) ;
-            Drivetrain.encoderStrafe(-24);
-            sleep(1000);
+        //scan
+        Drivetrain.stop();
 
-        }
+
 
     }
 }
 
 }
+
+
