@@ -59,7 +59,7 @@ public class TestingRoutine extends LinearOpMode
     public static DcMotor armLeft;
     public static Servo claw;
     public static Servo wrist;
-    public static double power;
+    public static double armPower;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -70,25 +70,55 @@ public class TestingRoutine extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        armLeft = hardwareMap.get(DcMotor.class, "left");
-        armRight = hardwareMap.get(DcMotor.class, "right");
+        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
+        armRight = hardwareMap.get(DcMotor.class, "armRight");
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armRight, armLeft, claw, wrist);
+        Arm.init(armLeft, armRight, claw, wrist);
 
-        armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 
+        while (opModeIsActive()) {
+            leftFront.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
+            rightFront.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            leftRear.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightRear.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
 
+            armPower = ((-gamepad2.left_stick_y) * 0.5);
+
+            armLeft.setPower(armPower);
+            armRight.setPower(armPower);
+
+            telemetry.addData("power", armPower);
+            telemetry.update();
+
+            if (gamepad2.y) {
+                wrist.setPosition(0.3);
+            }
+
+            if (gamepad2.b) {
+                wrist.setPosition(0.0);
+            }
+
+            if (gamepad2.a) {
+                wrist.setPosition(0.95);
+            }
+
+            if (gamepad2.right_bumper) {
+                Arm.openClaw();
+            }
+            
+            if (gamepad2.left_bumper) {
+                Arm.closeClaw();
+            }
+        }
 
     }
 }
