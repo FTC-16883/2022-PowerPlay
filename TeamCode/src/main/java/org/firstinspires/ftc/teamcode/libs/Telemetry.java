@@ -11,6 +11,7 @@ public class Telemetry {
 
     public static void addData(String caption, String value) {
         telemetry.addData(caption, value);
+        telemetry.update();
     }
 
     public static void updateDrivetrainEncoders() {
