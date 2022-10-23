@@ -62,13 +62,15 @@ public class RedRight extends LinearOpMode
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
 
+
+    public static int locSignal;
     @Override
     public void runOpMode() throws InterruptedException {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-
+        locSignal = 3w;
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         telemetry.addData("Status", "Initialized");
@@ -77,21 +79,39 @@ public class RedRight extends LinearOpMode
         waitForStart();
 
         Drivetrain.encoderForward(70);
-        Drivetrain.encoderTurn(95);
+        Drivetrain.encoderTurn(90);
         //arm coding
         sleep(2000);
 
-        Drivetrain.encoderTurn(95);
-        Drivetrain.encoderForward(18);
+        Drivetrain.encoderTurn(85);
+        Drivetrain.encoderForward(10);
+        sleep(1000);
+/*
+        if (locSignal == 2){
+            Drivetrain.encoderForward(10);
+            sleep(1000);
+
+        }
+        else if (locSignal == 3) {
+            Drivetrain.encoderStrafe(-26);
+            sleep(1000);
+        }
+
+        else if (locSignal == 1) {
+            Drivetrain.encoderStrafe(26);
+            sleep(1000);
+        }
+
+*/
+
+      Drivetrain.encoderStrafe(-26);
+      sleep(1000);
+
+        Drivetrain.encoderStrafe(52);
         sleep(1000);
 
-        //scan
-        Drivetrain.encoderStrafe(24);
-        sleep(1000);
 
-        //scan
-        Drivetrain.encoderStrafe(-48);
-        sleep(1000);
+
 
         //scan
         Drivetrain.stop();
