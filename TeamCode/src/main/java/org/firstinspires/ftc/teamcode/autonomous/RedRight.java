@@ -76,13 +76,13 @@ public class RedRight extends LinearOpMode
 
         waitForStart();
 
-        Drivetrain.encoderForward(80);
-        Drivetrain.encoderTurn(90);
+        Drivetrain.encoderForward(70);
+        Drivetrain.encoderTurn(95);
         //arm coding
         sleep(2000);
 
-        Drivetrain.encoderTurn(90);
-        Drivetrain.encoderForward(28);
+        Drivetrain.encoderTurn(95);
+        Drivetrain.encoderForward(18);
         sleep(1000);
 
         //scan
