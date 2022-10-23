@@ -60,7 +60,7 @@ import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 @Autonomous(name="Autonomous Base", group="Android Studio")
 @Disabled
-public class AutonBase extends LinearOpMode
+public abstract class AutonBase extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
@@ -94,4 +94,6 @@ public class AutonBase extends LinearOpMode
         waitForStart();
 
     }
+
+    public abstract void runAutonomous();
 }
