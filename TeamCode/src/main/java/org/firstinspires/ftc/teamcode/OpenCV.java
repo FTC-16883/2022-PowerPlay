@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.AutonBase;
 import org.firstinspires.ftc.teamcode.utility.Globalvalues;
@@ -42,5 +44,11 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
                  */
             }
         });
+        waitForStart();
+
+        while (opModeIsActive())
+        {
+
+        }
     }
 }
