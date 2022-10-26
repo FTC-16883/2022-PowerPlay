@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.AutonBase;
 import org.firstinspires.ftc.teamcode.utility.Globalvalues;
+import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 // code from 12 to 45 made by ved nakum ;)
-    public class OpenCV extends AutonBase {
+public class OpenCV extends AutonBase {
     private OpenCvCamera webcam;
 
     private static final int CAMERA_WIDTH = 1280; // width  of wanted camera resolution
@@ -32,7 +33,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                webcam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -43,11 +44,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
                  * Add error print so if it has problems we can fix it
                  */
             }
-        });
-        waitForStart();
+        }
+        );
+    }
 
-        while (opModeIsActive())
-        {
+    class examplePipeline extends AutonBase{
+        Mat YCbCr = new Mat();
+
 
         }
     }
