@@ -70,7 +70,7 @@ public class RedRight extends LinearOpMode
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        locSignal = 3w;
+        locSignal = 3;
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         telemetry.addData("Status", "Initialized");
