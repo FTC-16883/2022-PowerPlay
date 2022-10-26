@@ -41,14 +41,12 @@ public static class RedRight extends LinearOpMode
         sleep(1000);
 
         boolean one;
-        if( one = true);
         {
             Drivetrain.encoderStrafe(24);
             sleep(1000);
 
         }
         boolean two;
-         if (two = true);
         {
             sleep(1000);
         }
