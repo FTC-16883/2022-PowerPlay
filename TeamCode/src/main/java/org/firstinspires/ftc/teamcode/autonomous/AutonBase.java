@@ -82,8 +82,8 @@ public class AutonBase extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        armLeft = hardwareMap.get(DcMotorEx.class, "left");
-        armRight = hardwareMap.get(DcMotorEx.class, "right");
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
