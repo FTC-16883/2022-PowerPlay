@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
 
 public class BlueLeft {@Autonomous(name="BlueLeft", group="Android Studio")
@@ -33,7 +34,8 @@ public static class RedRight extends LinearOpMode
 
         Drivetrain.encoderForward(73);
         Drivetrain.encoderTurn(92);
-        //arm coding
+        Arm.armHigh();
+        Arm.openClaw();
         sleep(2000);
 
         Drivetrain.encoderTurn(92);
