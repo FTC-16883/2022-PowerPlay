@@ -55,8 +55,8 @@ public class TestingRoutine extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
-    public static DcMotor armRight;
-    public static DcMotor armLeft;
+    public static DcMotorEx armRight;
+    public static DcMotorEx armLeft;
     public static Servo claw;
     public static Servo wrist;
     public static double armPower;
@@ -70,8 +70,8 @@ public class TestingRoutine extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-        armRight = hardwareMap.get(DcMotor.class, "armRight");
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
