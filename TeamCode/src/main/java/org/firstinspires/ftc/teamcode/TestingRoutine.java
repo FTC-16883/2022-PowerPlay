@@ -86,8 +86,8 @@ public class TestingRoutine extends LinearOpMode
         waitForStart();
 
         while (opModeIsActive()) {
-            leftFront.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
-            rightFront.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            leftFront.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightFront.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
             leftRear.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
             rightRear.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
 
@@ -99,16 +99,16 @@ public class TestingRoutine extends LinearOpMode
             telemetry.addData("power", armPower);
             telemetry.update();
 
-            if (gamepad2.y) {
-                wrist.setPosition(0.3);
+            if (gamepad2.triangle) {
+                wrist.setPosition(0.8);
             }
 
-            if (gamepad2.b) {
+            if (gamepad2.circle) {
+                wrist.setPosition(0.4);
+            }
+
+            if (gamepad2.cross) {
                 wrist.setPosition(0.0);
-            }
-
-            if (gamepad2.a) {
-                wrist.setPosition(0.95);
             }
 
             if (gamepad2.right_bumper) {

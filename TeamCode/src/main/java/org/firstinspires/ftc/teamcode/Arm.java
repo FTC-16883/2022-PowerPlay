@@ -33,11 +33,11 @@ public class Arm {
     }
 
     public static void openClaw() {
-        claw.setPosition(0.3);
+        claw.setPosition(0.25);
     }
 
     public static void closeClaw() {
-        claw.setPosition(0.1);
+        claw.setPosition(0.05);
     }
 
     public static void armFloor() {
