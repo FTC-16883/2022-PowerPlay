@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-// code from 12 to 45 made by ved nakum ;)
+// code from 12 to 47 made by ved nakum ;)
 public class OpenCV extends AutonBase {
     private OpenCvCamera webcam;
 
