@@ -31,27 +31,21 @@ public class OpenCV extends AutonBase {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         // Webcam Streaming
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
-            }
+                                         @Override
+                                         public void onOpened() {
+                                             webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+                                         }
 
-            @Override
-            public void onError(int errorCode) {
+                                         @Override
+                                         public void onError(int errorCode) {
 
-                /*
-                 * This will be called if the camera could not be opened
-                 * Add error print so if it has problems we can fix it
-                 */
-            }
-        }
+                                             /*
+                                              * This will be called if the camera could not be opened
+                                              * Add error print so if it has problems we can fix it
+                                              */
+                                         }
+                                     }
         );
     }
-
-    class examplePipeline extends AutonBase{
-        Mat YCbCr = new Mat();
-
-
-        }
-    }
 }
+
