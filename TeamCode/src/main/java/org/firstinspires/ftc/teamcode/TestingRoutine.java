@@ -31,8 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -43,16 +46,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  */
 
-@Autonomous(name="Motor Testing", group="Android Studio Testing")
+@TeleOp(name="Motor Testing", group="Android Studio Testing")
 public class TestingRoutine extends LinearOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotorEx leftFront;
-    private DcMotorEx rightFront;
-    private DcMotorEx leftRear;
-    private DcMotorEx rightRear;
-    private Drivetrain drivetrain;
+    public static DcMotorEx leftFront;
+    public static DcMotorEx rightFront;
+    public static DcMotorEx leftRear;
+    public static DcMotorEx rightRear;
+    public static DcMotorEx armRight;
+    public static DcMotorEx armLeft;
+    public static Servo claw;
+    public static Servo wrist;
+    public static double armPower;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,26 +68,57 @@ public class TestingRoutine extends LinearOpMode
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-//        Telemetry.init();
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
+        claw = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
+
+        Arm.init(armLeft, armRight, claw, wrist);
+
+        armLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
         waitForStart();
 
-        leftFront.setPower(1);
-        sleep(1000);
-        leftFront.setPower(0);
+        while (opModeIsActive()) {
+            leftFront.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightFront.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
+            leftRear.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightRear.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
 
-        rightFront.setPower(1);
-        sleep(1000);
-        rightFront.setPower(0);
+            armPower = ((-gamepad2.left_stick_y) * 0.5);
 
-        leftRear.setPower(1);
-        sleep(1000);
-        leftRear.setPower(0);
+            armLeft.setPower(armPower);
+            armRight.setPower(armPower);
 
-        rightRear.setPower(1);
-        sleep(1000);
-        rightRear.setPower(0);
+            telemetry.addData("power", armPower);
+            telemetry.update();
+
+            if (gamepad2.triangle) {
+                wrist.setPosition(0.8);
+            }
+
+            if (gamepad2.circle) {
+                wrist.setPosition(0.4);
+            }
+
+            if (gamepad2.cross) {
+                wrist.setPosition(0.0);
+            }
+
+            if (gamepad2.right_bumper) {
+                Arm.openClaw();
+            }
+            
+            if (gamepad2.left_bumper) {
+                Arm.closeClaw();
+            }
+        }
+
     }
 }
