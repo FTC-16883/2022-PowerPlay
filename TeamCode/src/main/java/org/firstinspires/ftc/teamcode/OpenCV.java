@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.AutonBase;
-import org.firstinspires.ftc.teamcode.utility.Globalvalues;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -19,10 +18,10 @@ public class OpenCV extends AutonBase {
     private static final int CAMERA_WIDTH = 1280; // width  of wanted camera resolution
     private static final int CAMERA_HEIGHT = 720; // height of wanted camera resolution
 
-    public static double borderLeftX = 0.0;   //fraction of pixels from the left side of the cam to skip
-    public static double borderRightX = 0.0;   //fraction of pixels from the right of the cam to skip
-    public static double borderTopY = 0.0;   //fraction of pixels from the top of the cam to skip
-    public static double borderBottomY = 0.0;   //fraction of pixels from the bottom of the cam to skip
+    public static double borderLeftX = 10;   //fraction of pixels from the left side of the cam to skip
+    public static double borderRightX = 10;   //fraction of pixels from the right of the cam to skip
+    public static double borderTopY = 10;   //fraction of pixels from the top of the cam to skip
+    public static double borderBottomY = 10;   //fraction of pixels from the bottom of the cam to skip
 
     @Override
     public void runAutonomous() {
@@ -31,20 +30,18 @@ public class OpenCV extends AutonBase {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         // Webcam Streaming
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-                                         @Override
-                                         public void onOpened() {
-                                             webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
-                                         }
+            @Override
+            public void onOpened() {
+                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+            }
 
-                                         @Override
-                                         public void onError(int errorCode) {
+                @Override
+                public void onError(int errorCode) {
 
-                                             /*
-                                              * This will be called if the camera could not be opened
-                                              * Add error print so if it has problems we can fix it
-                                              */
-                                         }
-                                     }
+                 /*
+                 */
+                 }
+            }
         );
     }
 }
