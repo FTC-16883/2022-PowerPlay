@@ -37,8 +37,8 @@ public class OpenCV extends AutonBase {
 
                 @Override
                 public void onError(int errorCode) {
-
                  /*
+                 add end streaming statement here
                  */
                  }
             }
