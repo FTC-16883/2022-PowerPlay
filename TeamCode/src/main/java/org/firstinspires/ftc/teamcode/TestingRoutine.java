@@ -60,6 +60,7 @@ public class TestingRoutine extends LinearOpMode
     public static Servo claw;
     public static Servo wrist;
     public static double armPower;
+    public static double wristPosition;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -86,10 +87,10 @@ public class TestingRoutine extends LinearOpMode
         waitForStart();
 
         while (opModeIsActive()) {
-            leftFront.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
-            rightFront.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
-            leftRear.setPower((-gamepad1.right_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
-            rightRear.setPower((-gamepad1.right_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
+            leftFront.setPower((-gamepad1.left_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightFront.setPower((-gamepad1.left_stick_y) + (-gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
+            leftRear.setPower((-gamepad1.left_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
+            rightRear.setPower((-gamepad1.left_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
 
             armPower = ((-gamepad2.left_stick_y) * 0.5);
 
@@ -97,18 +98,23 @@ public class TestingRoutine extends LinearOpMode
             armRight.setPower(armPower);
 
             telemetry.addData("power", armPower);
+            telemetry.addData("arm left Encoder", armLeft.getCurrentPosition());
+            telemetry.addData("arm right Encoder", armRight.getCurrentPosition());
             telemetry.update();
 
             if (gamepad2.triangle) {
-                wrist.setPosition(0.8);
+                wristPosition = 1;
+                wrist.setPosition(1);
             }
 
             if (gamepad2.circle) {
-                wrist.setPosition(0.4);
+                wristPosition = 0.5;
+                wrist.setPosition(0.5);
             }
 
             if (gamepad2.cross) {
-                wrist.setPosition(0.0);
+                wristPosition = 0.2;
+                wrist.setPosition(0.2);
             }
 
             if (gamepad2.right_bumper) {
@@ -117,6 +123,22 @@ public class TestingRoutine extends LinearOpMode
             
             if (gamepad2.left_bumper) {
                 Arm.closeClaw();
+            }
+
+            if (gamepad2.dpad_up) {
+                Arm.armHigh();
+            }
+
+            if (gamepad2.dpad_down) {
+                Arm.armFloor();
+            }
+
+            if (gamepad2.dpad_left) {
+                Arm.armLow();
+            }
+
+            if (gamepad2.dpad_right) {
+                Arm.armMedium();
             }
         }
 

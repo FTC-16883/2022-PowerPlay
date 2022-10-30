@@ -37,7 +37,7 @@ public class Arm {
     }
 
     public static void closeClaw() {
-        claw.setPosition(0.05);
+        claw.setPosition(0.00);
     }
 
     public static void armFloor() {
@@ -52,8 +52,8 @@ public class Arm {
     }
 
     public static void armLow() {
-        armLeft.setTargetPosition(10);
-        armRight.setTargetPosition(10);
+        armLeft.setTargetPosition(140);
+        armRight.setTargetPosition(140);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -63,8 +63,8 @@ public class Arm {
     }
 
     public static void armMedium() {
-        armLeft.setTargetPosition(20);
-        armRight.setTargetPosition(20);
+        armLeft.setTargetPosition(360);
+        armRight.setTargetPosition(360);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -74,8 +74,8 @@ public class Arm {
     }
 
     public static void armHigh() {
-        armLeft.setTargetPosition(30);
-        armRight.setTargetPosition(30);
+        armLeft.setTargetPosition(570);
+        armRight.setTargetPosition(570);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
