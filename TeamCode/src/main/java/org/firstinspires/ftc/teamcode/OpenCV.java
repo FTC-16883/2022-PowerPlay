@@ -7,6 +7,16 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 // code from 12 to 47 made by ved nakum ;)
 public class OpenCV extends AutonBase {
@@ -25,6 +35,9 @@ public class OpenCV extends AutonBase {
             // OpenCV webcam
             int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
             webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+
+            webcam.setPipeline(new SamplePipeline());
+
             // Webcam Streaming
             webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -41,6 +54,13 @@ public class OpenCV extends AutonBase {
                                          }
             );
         }
+
+    private class SamplePipeline extends OpenCvPipeline {
+        @Override
+        public Mat processFrame(Mat input) {
+            return null;
+        }
     }
+}
 
 
