@@ -11,12 +11,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 // code from 12 to 47 made by ved nakum ;)
 public class OpenCV extends AutonBase {
     private OpenCvCamera webcam;
-    private Object PipelineRecordingParameters;
 
-    void setPipeline(OpenCvPipeline pipeline) {
-
-
-    }
         private static final int CAMERA_WIDTH = 1280; // width  of wanted camera resolution
         private static final int CAMERA_HEIGHT = 720; // height of wanted camera resolution
 
