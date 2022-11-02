@@ -166,7 +166,6 @@ public class RemoteCam
             //webcam.pauseViewport();// Pause image for processing
 
             Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
-            input.copyTo(output); //copy input to output
             Imgproc.rectangle(
                     output,
                     new Point(
@@ -193,12 +192,12 @@ public class RemoteCam
             Core.extractChannel(loc3crop, loc3crop, 0);
             upperaverage = Core.mean(loc3crop);
             RemoteCam.color3average = upperaverage.val[0];
+            //Release video image.
             loc1crop.release() ;
             loc2crop.release();
             loc3crop.release();
             yCbCrChan2Mat.release();
-
-            return output;
+            return input;
         }
         @Override
         public void onViewportTapped()
