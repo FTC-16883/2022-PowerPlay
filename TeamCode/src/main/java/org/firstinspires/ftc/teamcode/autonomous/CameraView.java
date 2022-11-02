@@ -56,7 +56,7 @@ public class CameraView extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput1.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput1.init(camInput1.webcam);
-        
+
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -70,12 +70,22 @@ public class CameraView extends LinearOpMode {
             /*
              * Send some stats to the telemetry
              */
-            telemetry.addData("Frame Count", camInput1.webcam.getFrameCount());
-            telemetry.addData("FPS", String.format("%.2f", camInput1.webcam.getFps()));
-            telemetry.addData("Total frame time ms", camInput1.webcam.getTotalFrameTimeMs());
+
+            int locpark;
+            if (camInput1.color3average> 140){
+                telemetry.addData("Detected color is yellow :", 1);
+
+            }
+            if (camInput1.color2average> 140){
+                telemetry.addData("Detected color is red :", 2);
+
+            }
+            if (camInput1.color1average> 140){
+                telemetry.addData("Detected color is blue :",3);
+
+            }
+
             telemetry.addData("Pipeline time ms", camInput1.webcam.getPipelineTimeMs());
-            telemetry.addData("Overhead time ms", camInput1.webcam.getOverheadTimeMs());
-            telemetry.addData("Theoretical max FPS", camInput1.webcam.getCurrentPipelineMaxFps());
             telemetry.update();
 
             /*

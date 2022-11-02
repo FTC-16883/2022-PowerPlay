@@ -32,10 +32,18 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Core;
+import org.opencv.core.Rect;
+
 
 public class RemoteCam
 {
     public static OpenCvWebcam webcam;
+    public static int location;
+    public static double color1average;
+    public static double color2average;
+    public static double color3average;
 
     public RemoteCam(){}
 
@@ -123,38 +131,75 @@ public class RemoteCam
          */
 
         @Override
-        public Mat processFrame(Mat input)
-        {
-            /*
-             * IMPORTANT NOTE: the input Mat that is passed in as a parameter to this method
-             * will only dereference to the same image for the duration of this particular
-             * invocation of this method. That is, if for some reason you'd like to save a copy
-             * of this particular frame for later use, you will need to either clone it or copy
-             * it to another Mat.
-             */
+        public Mat processFrame(Mat input) {
 
-            /*
-             * Draw a simple box around the middle 1/2 of the entire frame
-             */
+            Mat yCbCrChan2Mat = new Mat();
+            Mat output = new Mat();
+            Mat loc1crop = new Mat();
+            Mat loc2crop = new Mat();
+            Mat loc3crop = new Mat();
+
+            Mat thresholdMat = new Mat();
+
+
+            Mat contoursOnFrameMat = new Mat();
+            int numContoursFound;
+            Scalar loc1Color = new Scalar(255.0, 0.0, 0.0);
+            Scalar loc2Color = new Scalar(0.0, 255.0, 0.0);
+            Scalar loc3Color = new Scalar(0.0, 0.0, 255.0);
+
             Imgproc.rectangle(
                     input,
                     new Point(
-                            input.cols()/4,
-                            input.rows()/4),
+                            input.cols() / 4,
+                            input.rows() / 4),
                     new Point(
-                            input.cols()*(3f/4f),
-                            input.rows()*(3f/4f)),
-                    new Scalar(0, 255, 0), 4);
+                            input.cols() * (3f / 4f),
+                            input.rows() * (3f / 4f)),
+                    new Scalar(255, 255, 0), 4);
 
             /**
              * NOTE: to see how to get data from your pipeline to your OpMode as well as how
              * to change which stage of the pipeline is rendered to the viewport when it is
              * tapped, please see {@link PipelineStageSwitchingExample}
              */
+            //webcam.pauseViewport();// Pause image for processing
 
-            return input;
+            Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
+            input.copyTo(output); //copy input to output
+            Imgproc.rectangle(
+                    output,
+                    new Point(
+                            input.cols() / 4,
+                            input.rows() / 4),
+                    new Point(
+                            input.cols() * (3f / 4f),
+                            input.rows() * (3f / 4f)),
+                    new Scalar(255, 255, 0), 4);
+
+            Rect rect1 = new Rect(input.cols() / 4, input.rows() / 4, 120, 40);
+
+            loc1crop = yCbCrChan2Mat.submat(rect1);
+            Core.extractChannel(loc1crop, loc1crop, 2);
+            Scalar upperaverage = Core.mean(loc1crop);
+            RemoteCam.color1average = upperaverage.val[0];
+
+            loc2crop = yCbCrChan2Mat.submat(rect1);
+            Core.extractChannel(loc2crop, loc2crop, 1);
+            upperaverage = Core.mean(loc2crop);
+            RemoteCam.color2average = upperaverage.val[0];
+
+            loc3crop = yCbCrChan2Mat.submat(rect1);
+            Core.extractChannel(loc3crop, loc3crop, 0);
+            upperaverage = Core.mean(loc3crop);
+            RemoteCam.color3average = upperaverage.val[0];
+            loc1crop.release() ;
+            loc2crop.release();
+            loc3crop.release();
+            yCbCrChan2Mat.release();
+
+            return output;
         }
-
         @Override
         public void onViewportTapped()
         {
