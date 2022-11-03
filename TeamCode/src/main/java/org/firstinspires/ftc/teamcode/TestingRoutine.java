@@ -29,12 +29,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -92,14 +90,9 @@ public class TestingRoutine extends LinearOpMode
             leftRear.setPower((-gamepad1.left_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
             rightRear.setPower((-gamepad1.left_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
 
-            armPower = ((-gamepad2.left_stick_y) * 0.5);
-
-            armLeft.setPower(armPower);
-            armRight.setPower(armPower);
-
-            telemetry.addData("power", armPower);
             telemetry.addData("arm left Encoder", armLeft.getCurrentPosition());
             telemetry.addData("arm right Encoder", armRight.getCurrentPosition());
+            telemetry.addData("Claw Position", claw.getPosition());
             telemetry.update();
 
             if (gamepad2.triangle) {
@@ -108,8 +101,8 @@ public class TestingRoutine extends LinearOpMode
             }
 
             if (gamepad2.circle) {
-                wristPosition = 0.5;
-                wrist.setPosition(0.5);
+                wristPosition = 0.45;
+                wrist.setPosition(0.45);
             }
 
             if (gamepad2.cross) {
@@ -118,11 +111,11 @@ public class TestingRoutine extends LinearOpMode
             }
 
             if (gamepad2.right_bumper) {
-                Arm.openClaw();
+                Arm.closeClaw();
             }
             
             if (gamepad2.left_bumper) {
-                Arm.closeClaw();
+                Arm.openClaw();
             }
 
             if (gamepad2.dpad_up) {

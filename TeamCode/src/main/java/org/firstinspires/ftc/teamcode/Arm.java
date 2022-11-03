@@ -30,13 +30,15 @@ public class Arm {
 
         armLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         armRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-    }
 
-    public static void openClaw() {
-        claw.setPosition(0.25);
+//        claw.setDirection(Servo.Direction.REVERSE);
     }
 
     public static void closeClaw() {
+        claw.setPosition(0.35);
+    }
+
+    public static void openClaw() {
         claw.setPosition(0.00);
     }
 
@@ -47,8 +49,8 @@ public class Arm {
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        armLeft.setPower(0.5);
-        armRight.setPower(0.5);
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armLow() {
@@ -58,8 +60,8 @@ public class Arm {
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        armLeft.setPower(0.5);
-        armRight.setPower(0.5);
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armMedium() {
@@ -69,8 +71,8 @@ public class Arm {
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        armLeft.setPower(0.5);
-        armRight.setPower(0.5);
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armHigh() {
@@ -80,7 +82,7 @@ public class Arm {
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        armLeft.setPower(0.5);
-        armRight.setPower(0.5);
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 }
