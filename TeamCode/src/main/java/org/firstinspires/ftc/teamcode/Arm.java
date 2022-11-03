@@ -2,79 +2,87 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 public class Arm {
-    public static DcMotorEx arm;
-    public static Servo clawLeft;
-    public static Servo clawRight;
+    public static DcMotorEx armLeft;
+    public static DcMotorEx armRight;
+    public static Servo claw;
+    public static Servo wrist;
 
     public Arm() {
 
     }
 
-    public static void init(DcMotorEx arm, Servo clawLeft, Servo clawRight) {
-        Arm.arm = arm;
-        Arm.clawLeft = clawLeft;
-        Arm.clawRight = clawRight;
+    public static void init(DcMotorEx armLeft, DcMotorEx armRight, Servo claw, Servo wrist) {
+        Arm.armLeft = armLeft;
+        Arm.armRight = armRight;
+        Arm.claw = claw;
+        Arm.wrist = wrist;
 
-        clawRight.setDirection(Servo.Direction.REVERSE);
-    }
+        armLeft.setDirection(DcMotorEx.Direction.REVERSE);
 
-    public static void openClaw() {
-        clawLeft.setPosition(0);
-        clawRight.setPosition(0);
+        armLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        armLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        armLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        armRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+//        claw.setDirection(Servo.Direction.REVERSE);
     }
 
     public static void closeClaw() {
-        clawLeft.setPosition(1);
-        clawRight.setPosition(1);
+        claw.setPosition(0.35);
+    }
+
+    public static void openClaw() {
+        claw.setPosition(0.00);
     }
 
     public static void armFloor() {
-        arm.setTargetPosition(0);
+        armLeft.setTargetPosition(0);
+        armRight.setTargetPosition(0);
 
-        arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        arm.setPower(1);
-
-        while (arm.isBusy()) {
-            //Telemetry.updateArmEncoder();
-        }
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armLow() {
-        arm.setTargetPosition(1000);
+        armLeft.setTargetPosition(140);
+        armRight.setTargetPosition(140);
 
-        arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        arm.setPower(1);
-
-        while (arm.isBusy()) {
-            //Telemetry.updateArmEncoder();
-        }
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armMedium() {
-        arm.setTargetPosition(2000);
+        armLeft.setTargetPosition(360);
+        armRight.setTargetPosition(360);
 
-        arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        arm.setPower(1);
-
-        while (arm.isBusy()) {
-            //Telemetry.updateArmEncoder();
-        }
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 
     public static void armHigh() {
-        arm.setTargetPosition(3000);
+        armLeft.setTargetPosition(570);
+        armRight.setTargetPosition(570);
 
-        arm.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        arm.setPower(1);
-
-        while (arm.isBusy()) {
-            //Telemetry.updateArmEncoder();
-        }
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
     }
 }

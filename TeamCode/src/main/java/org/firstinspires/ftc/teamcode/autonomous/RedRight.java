@@ -43,6 +43,7 @@ import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
@@ -71,9 +72,12 @@ public class RedRight extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
-    public static DcMotorEx arm;
-    public static Servo clawLeft;
-    public static Servo clawRight;
+
+    public static DcMotorEx armRight;
+    public static DcMotorEx armLeft;
+    public static Servo claw;
+    public static Servo wrist;
+
     public static RemoteCam camInput;
     public static int locSignal;
     public static Runtime opTime;
@@ -90,12 +94,12 @@ public class RedRight extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
-        arm = hardwareMap.get(DcMotorEx.class, "arm");
-        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
-        clawRight = hardwareMap.get(Servo.class, "clawRight");
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
+        claw = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(arm, clawLeft, clawRight);
-
+        Arm.init(armRight, armLeft, claw, wrist);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -124,7 +128,7 @@ public class RedRight extends LinearOpMode
             telemetry.addData("color level 2", camInput.color2average);
             telemetry.addData("color level 3", camInput.color3average);
             telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
-            telemetry.update();
+           // telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
         Drivetrain.encoderForward(70);
@@ -135,8 +139,7 @@ public class RedRight extends LinearOpMode
         Drivetrain.encoderForward(10);
 
         //arm coding
-        Arm.armHigh();
-        Arm.openClaw();
+
         sleep(1000);
 
         if (locSignal == 2){
