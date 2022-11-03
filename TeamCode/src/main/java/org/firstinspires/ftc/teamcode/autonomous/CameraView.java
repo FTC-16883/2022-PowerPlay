@@ -85,6 +85,10 @@ public class CameraView extends LinearOpMode {
 
             }
 
+
+            telemetry.addData("color level 1", camInput1.color1average);
+            telemetry.addData("color level 2", camInput1.color2average);
+            telemetry.addData("color level 3", camInput1.color3average);
             telemetry.addData("Pipeline time ms", camInput1.webcam.getPipelineTimeMs());
             telemetry.update();
 

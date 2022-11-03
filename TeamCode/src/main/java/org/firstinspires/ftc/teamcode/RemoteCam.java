@@ -35,7 +35,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Core;
 import org.opencv.core.Rect;
-
+import org.opencv.core.Size;
 
 public class RemoteCam
 {
@@ -44,7 +44,8 @@ public class RemoteCam
     public static double color1average;
     public static double color2average;
     public static double color3average;
-
+    public static int locSignalProc1, locsignalProc2, locSignal;
+    public static double loc1Percent, loc2Percent, loc3Percent;
     public RemoteCam(){}
 
     public static void init(OpenCvWebcam frontCamera){
@@ -55,6 +56,7 @@ public class RemoteCam
          */
         RemoteCam.webcam = frontCamera;
         RemoteCam.webcam.setPipeline(new SamplePipeline());
+        locSignal = 0; //Set to value other than Location 1 /2/3
 
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
@@ -138,45 +140,38 @@ public class RemoteCam
             Mat loc1crop = new Mat();
             Mat loc2crop = new Mat();
             Mat loc3crop = new Mat();
-
+            Mat baseline = new Mat();
             Mat thresholdMat = new Mat();
+            //TBD from testing
 
+            Scalar loc1_lowRange = new Scalar(255.0, 0.0, 0.0);
+            Scalar loc1_upRange = new Scalar(255.0, 0.0, 0.0);
 
-            Mat contoursOnFrameMat = new Mat();
-            int numContoursFound;
-            Scalar loc1Color = new Scalar(255.0, 0.0, 0.0);
-            Scalar loc2Color = new Scalar(0.0, 255.0, 0.0);
-            Scalar loc3Color = new Scalar(0.0, 0.0, 255.0);
+            Scalar loc2_lowRange = new Scalar(200.0, 200.0, 0.0,0.0);
+            Scalar loc2_upRange = new Scalar(255.0, 255.0, 130.0,255.0);
 
-            Imgproc.rectangle(
-                    input,
-                    new Point(
-                            input.cols() / 4,
-                            input.rows() / 4),
-                    new Point(
-                            input.cols() * (3f / 4f),
-                            input.rows() * (3f / 4f)),
-                    new Scalar(255, 255, 0), 4);
+            Scalar loc3_lowRange = new Scalar(255.0, 0.0, 0.0,0.0);
+            Scalar loc3_upRange = new Scalar(255.0, 0.0, 0.0,0.0);
+
 
             /**
              * NOTE: to see how to get data from your pipeline to your OpMode as well as how
              * to change which stage of the pipeline is rendered to the viewport when it is
              * tapped, please see {@link PipelineStageSwitchingExample}
              */
-            //webcam.pauseViewport();// Pause image for processing
 
+            //Comparison Check 1
             Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
             Imgproc.rectangle(
-                    output,
+                    input,
                     new Point(
                             input.cols() / 4,
                             input.rows() / 4),
                     new Point(
-                            input.cols() * (3f / 4f),
-                            input.rows() * (3f / 4f)),
-                    new Scalar(255, 255, 0), 4);
-
-            Rect rect1 = new Rect(input.cols() / 4, input.rows() / 4, 120, 40);
+                            input.cols() /4 + 35 ,
+                            input.rows()/4  + 60),
+                    new Scalar(255, 255, 255), 4);
+            Rect rect1 = new Rect(input.cols() / 4, input.rows() / 4, 35, 60);
 
             loc1crop = yCbCrChan2Mat.submat(rect1);
             Core.extractChannel(loc1crop, loc1crop, 2);
@@ -192,13 +187,64 @@ public class RemoteCam
             Core.extractChannel(loc3crop, loc3crop, 0);
             upperaverage = Core.mean(loc3crop);
             RemoteCam.color3average = upperaverage.val[0];
+            double colorAvg = Math.max(RemoteCam.color3average, Math.max(RemoteCam.color3average, RemoteCam.color3average));
+
+            if (colorAvg == 140) {
+                locSignalProc1 = 1;
+            } else if (colorAvg == 140){
+                locSignalProc1 = 2;
+            } else if (colorAvg == 140){
+                locSignalProc1 = 3;
+            }
+
             //Release video image.
             loc1crop.release() ;
             loc2crop.release();
             loc3crop.release();
             yCbCrChan2Mat.release();
+
+
+            //Comparison Check 2
+            Imgproc.blur(input, thresholdMat, new Size(6, 6));
+            thresholdMat = thresholdMat.submat(rect1);
+
+            thresholdMat = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
+            Imgproc.morphologyEx(thresholdMat, thresholdMat, Imgproc.MORPH_CLOSE, baseline);
+
+            // Gets channels from given source mat
+            Core.inRange(thresholdMat, loc1_lowRange, loc1_upRange, loc1crop);
+            Core.inRange(thresholdMat, loc2_lowRange, loc2_upRange, loc2crop);
+            Core.inRange(thresholdMat, loc3_lowRange, loc3_upRange, loc3crop);
+
+            // Gets color specific values
+            loc1Percent = Core.countNonZero(loc1crop);
+            loc2Percent = Core.countNonZero(loc2crop);
+            loc3Percent = Core.countNonZero(loc3crop);
+
+            //Release video image.
+            loc1crop.release() ;
+            loc2crop.release();
+            loc3crop.release();
+            input.release();
+            baseline.release();
+
+            // maximum pixels identified for specific colors with Process 2
+            double colorId = Math.max(loc1Percent, Math.max(loc2Percent, loc3Percent));
+            if (colorId == loc1Percent) {
+                locsignalProc2 = 1;
+            } else if (colorId == loc2Percent){
+                locsignalProc2 = 2;
+            } else if (colorId == loc3Percent){
+                locsignalProc2 = 3;
+            }
+
+
             return input;
         }
+        public int getSignalLocation() {
+            return locSignal;
+        }
+
         @Override
         public void onViewportTapped()
         {

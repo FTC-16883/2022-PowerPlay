@@ -35,10 +35,20 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drivetrain;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Arm;
+import org.firstinspires.ftc.teamcode.Drivetrain;
+import org.firstinspires.ftc.teamcode.RemoteCam;
+import org.firstinspires.ftc.teamcode.libs.Telemetry;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 /*
  * @author Akash Sarada (akashsarada)
  *
@@ -61,32 +71,74 @@ public class RedRight extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
-
-
+    public static DcMotorEx arm;
+    public static Servo clawLeft;
+    public static Servo clawRight;
+    public static RemoteCam camInput;
     public static int locSignal;
+    public static Runtime opTime;
     @Override
     public void runOpMode() throws InterruptedException {
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        locSignal = 3;
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        camInput.init(camInput.webcam);
+
+
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
+
+        arm = hardwareMap.get(DcMotorEx.class, "arm");
+        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
+        clawRight = hardwareMap.get(Servo.class, "clawRight");
+
+        Arm.init(arm, clawLeft, clawRight);
+
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+        //grip cone for autonomous
 
+
+        // monitor camera to read signal for fixed time
+
+
+            if (camInput.color3average > 140) {
+                telemetry.addData("Detected color is yellow :", 1);
+
+            }
+            if (camInput.color2average > 140) {
+                telemetry.addData("Detected color is red :", 2);
+
+            }
+            if (camInput.color1average > 140) {
+                telemetry.addData("Detected color is blue :", 3);
+
+            }
+
+            telemetry.addData("color level 1", camInput.color1average);
+            telemetry.addData("color level 2", camInput.color2average);
+            telemetry.addData("color level 3", camInput.color3average);
+            telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
+            telemetry.update();
+
+        camInput.webcam.pauseViewport();// Pause image for processing
         Drivetrain.encoderForward(70);
         Drivetrain.encoderTurn(90);
-        //arm coding
         sleep(2000);
 
         Drivetrain.encoderTurn(85);
         Drivetrain.encoderForward(10);
+
+        //arm coding
+        Arm.armHigh();
+        Arm.openClaw();
         sleep(1000);
-/*
+
         if (locSignal == 2){
             Drivetrain.encoderForward(10);
             sleep(1000);
@@ -102,14 +154,13 @@ public class RedRight extends LinearOpMode
             sleep(1000);
         }
 
-*/
-
+        /*
       Drivetrain.encoderStrafe(-26);
       sleep(1000);
 
         Drivetrain.encoderStrafe(52);
         sleep(1000);
-
+*/
 
 
 
