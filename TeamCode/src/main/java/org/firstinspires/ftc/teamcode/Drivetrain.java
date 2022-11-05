@@ -17,7 +17,7 @@ public class Drivetrain {
 
     private static final int ticksToWheelRevolution = 1600;
     private static final double wheelRevolutionDistanceInches = 10;
-    private static final double degreesperinch = 0.11;
+    private static final double degreesperinch = 0.105;
 
     public Drivetrain() {
     }
@@ -109,8 +109,8 @@ public class Drivetrain {
 
         leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(ticks);
-        rightRear.setTargetPosition(-ticks);
+        leftRear.setTargetPosition(-ticks);
+        rightRear.setTargetPosition(ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
