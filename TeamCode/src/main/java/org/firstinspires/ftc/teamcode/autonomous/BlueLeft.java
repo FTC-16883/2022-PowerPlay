@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Arm;
@@ -17,6 +18,10 @@ public static class RedRight extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
+    public static DcMotorEx armRight;
+    public static DcMotorEx armLeft;
+    public static Servo claw;
+    public static Servo wrist;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,9 +32,17 @@ public static class RedRight extends LinearOpMode
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
+        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
+        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
+        claw = hardwareMap.get(Servo.class, "claw");
+        wrist = hardwareMap.get(Servo.class, "wrist");
+
+        Arm.init(armRight, armLeft, claw, wrist);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         Drivetrain.encoderForward(73);
