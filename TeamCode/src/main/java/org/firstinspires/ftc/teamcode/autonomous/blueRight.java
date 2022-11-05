@@ -1,15 +1,3 @@
-
-package org.firstinspires.ftc.teamcode.autonomous;
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Arm;
-import org.firstinspires.ftc.teamcode.Drivetrain;
-
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -39,6 +27,17 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.firstinspires.ftc.teamcode.autonomous;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Drivetrain;
+
 /**
  * @author Akash Sarada (akashsarada)
  *
@@ -48,60 +47,43 @@ import org.firstinspires.ftc.teamcode.Drivetrain;
  * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  *
- *
+ * Once copied: Complete the checklist:
  */
 
-@Autonomous(name="Redleft", group="Android Studio")
+@Autonomous(name= "blueRight", group="Android Studio")
 
-public class RedLeft extends LinearOpMode {
+public class blueRight extends LinearOpMode
+{
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
-    public static DcMotorEx leftFront;
-    public static DcMotorEx rightFront;
-    public static DcMotorEx leftRear;
-    public static DcMotorEx rightRear;
-    public static DcMotorEx armRight;
-    public static DcMotorEx armLeft;
-    public static Servo claw;
-    public static Servo wrist;
+    private Drivetrain drivetrain = new Drivetrain();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
-
-        armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
-        armRight = hardwareMap.get(DcMotorEx.class, "armRight");
-        claw = hardwareMap.get(Servo.class, "claw");
-        wrist = hardwareMap.get(Servo.class, "wrist");
-
-        Arm.init(armRight, armLeft, claw, wrist);
-
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        drivetrain.encoderForward(48);
+        drivetrain.stop();
 
-        Drivetrain.encoderForward(48);
-        Drivetrain.stop();
-
-        Drivetrain.encoderStrafe(-12);
-
-        Drivetrain.encoderForward(-12);
+        drivetrain.encoderStrafe(-12);
 
         sleep(2000);
 
-        Drivetrain.encoderStrafe(-24);
+        drivetrain.encoderStrafe(-12);
+
+        drivetrain.encoderForward(-12);
 
         sleep(2000);
 
-        Drivetrain.encoderForward(-24);
+        drivetrain.encoderStrafe(24);
 
         sleep(2000);
+
+        drivetrain.encoderStrafe(24);
+
+        sleep(2000);
+
+
+
     }
 }
