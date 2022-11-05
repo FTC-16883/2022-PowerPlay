@@ -107,9 +107,9 @@ public class Drivetrain {
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-ticks);
+        leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(ticks);
+        leftRear.setTargetPosition(-ticks);
         rightRear.setTargetPosition(ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);

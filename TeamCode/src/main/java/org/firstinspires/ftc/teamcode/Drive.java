@@ -42,7 +42,7 @@ import org.firstinspires.ftc.teamcode.libs.Telemetry;
 
 /**
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
- * When deployed, this class should appear in the "Autonomous" dropdown menu in alphabetical order
+ * When deployed, this class should appear in, the "Autonomous" dropdown menu in alphabetical order
  * When the class is selected, the classes is loaded with all the code before the "runOpMode" method
  * After the "INIT" button is pressed, all the code before the "waitForStart()" function is ran
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
@@ -70,40 +70,7 @@ public class Drive extends LinearOpMode
 
         waitForStart();
 
-        Drivetrain.forward(0.75);
-        sleep(1000);
-
+        Drivetrain.encoderForward(3);
         Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.turn(0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.forward(-0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.turn(-0.75);
-        sleep(2000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.strafe(0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
-
-        Drivetrain.strafe(-0.75);
-        sleep(1000);
-
-        Drivetrain.stop();
-        sleep(200);
     }
 }
