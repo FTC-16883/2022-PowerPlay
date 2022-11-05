@@ -51,6 +51,8 @@ public class Arm {
 
         armLeft.setPower(0.25);
         armRight.setPower(0.25);
+
+        wrist.setPosition(0.45);
     }
 
     public static void armLow() {
@@ -84,5 +86,7 @@ public class Arm {
 
         armLeft.setPower(0.25);
         armRight.setPower(0.25);
+
+        wrist.setPosition(1);
     }
 }

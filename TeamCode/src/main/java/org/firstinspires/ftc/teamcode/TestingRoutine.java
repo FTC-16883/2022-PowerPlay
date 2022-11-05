@@ -95,7 +95,7 @@ public class TestingRoutine extends LinearOpMode
             telemetry.addData("Claw Position", claw.getPosition());
             telemetry.update();
 
-            if (gamepad2.triangle) {
+            if (gamepad2.triangle && armLeft.getCurrentPosition() > 140 && armRight.getCurrentPosition() > 140) {
                 wristPosition = 1;
                 wrist.setPosition(1);
             }

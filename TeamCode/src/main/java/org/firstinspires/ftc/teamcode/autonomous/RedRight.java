@@ -109,6 +109,7 @@ public class RedRight extends LinearOpMode
 
         waitForStart();
         //grip cone for autonomous
+        wrist.setPosition(0.45);
         Arm.closeClaw();
 
         // monitor camera to read signal for fixed time
