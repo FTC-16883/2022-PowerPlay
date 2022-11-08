@@ -16,8 +16,8 @@ public class Drivetrain {
     public static DcMotorEx rightRear;
 
     private static final int ticksToWheelRevolution = 1600;
-    private static final double wheelRevolutionDistanceInches = 10;
-    private static final double degreesperinch = 0.105;
+    private static final double wheelRevolutionDistanceInches = 13;
+    private static final double degreesperinch = 0.22;
 
     public Drivetrain() {
     }
@@ -56,8 +56,8 @@ public class Drivetrain {
     public static void strafe(double power) {
         leftRear.setPower(-power);
         rightRear.setPower(power);
-        leftFront.setPower(-power);
-        rightFront.setPower(power);
+        leftFront.setPower(power);
+        rightFront.setPower(-power);
     }
 
     public static void stop() {
@@ -69,9 +69,9 @@ public class Drivetrain {
 
     public static void turn(double power) {
         leftFront.setPower(power);
-        rightRear.setPower(power);
+        rightRear.setPower(-power);
         rightFront.setPower(-power);
-        leftRear.setPower(-power);
+        leftRear.setPower(power);
     }
 
     public static void encoderForward(double inches) {
@@ -136,8 +136,8 @@ public class Drivetrain {
 
         leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(-ticks);
-        rightRear.setTargetPosition(ticks);
+        leftRear.setTargetPosition(ticks);
+        rightRear.setTargetPosition(-ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);

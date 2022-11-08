@@ -35,11 +35,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Arm;
+import org.firstinspires.ftc.teamcode.Drive;
 import org.firstinspires.ftc.teamcode.Drivetrain;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -102,18 +104,19 @@ public class RedRight extends LinearOpMode
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armRight, armLeft, claw, wrist);
+        Arm.initAuton(armRight, armLeft, claw, wrist);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
         //grip cone for autonomous
-        wrist.setPosition(0.45);
+        Arm.wristLevel();
         Arm.closeClaw();
+        sleep(2000);
+        Arm.wristIn();
 
         // monitor camera to read signal for fixed time
-
 
             if (camInput.color3average > 140) {
                 telemetry.addData("Detected color is  :", 1);
@@ -136,8 +139,8 @@ public class RedRight extends LinearOpMode
 
         camInput.webcam.pauseViewport();// Pause image for processing
         Drivetrain.encoderForward(70);
-        Drivetrain.encoderTurn(90);
-        sleep(2000);
+        Arm.armHigh();
+        Drivetrain.encoderTurn(100);
 
         /*
         Drivetrain.encoderStrafe(40);
@@ -152,12 +155,11 @@ public class RedRight extends LinearOpMode
         Drivetrain.encoderTurn(285);
         sleep(1000);
 */
-        Arm.armHigh();
+        Arm.wristScore();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
-        Arm.closeClaw();
-        sleep(1000);
+        Drivetrain.forward(-0.5);
 
         if (locSignal == 2){
             Drivetrain.encoderForward(10);

@@ -82,7 +82,7 @@ public class blueRight extends LinearOpMode
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armRight, armLeft, claw, wrist);
+        Arm.initAuton(armRight, armLeft, claw, wrist);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

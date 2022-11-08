@@ -74,7 +74,7 @@ public class TestingRoutine extends LinearOpMode
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        Arm.init(armLeft, armRight, claw, wrist);
+        Arm.initTeleop(armLeft, armRight, claw, wrist);
 
         armLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
