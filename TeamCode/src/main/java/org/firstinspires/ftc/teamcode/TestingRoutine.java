@@ -96,18 +96,15 @@ public class TestingRoutine extends LinearOpMode
             telemetry.update();
 
             if (gamepad2.triangle) {
-                wristPosition = 1;
-                wrist.setPosition(1);
+                Arm.wristScore();
             }
 
             if (gamepad2.circle) {
-                wristPosition = 0.45;
-                wrist.setPosition(0.45);
+                Arm.wristLevel();
             }
 
             if (gamepad2.cross) {
-                wristPosition = 0.2;
-                wrist.setPosition(0.2);
+                Arm.wristIn();
             }
 
             if (gamepad2.right_bumper) {
@@ -132,6 +129,10 @@ public class TestingRoutine extends LinearOpMode
 
             if (gamepad2.dpad_right) {
                 Arm.armMedium();
+            }
+
+            if (gamepad2.square) {
+                Arm.upsideDown();
             }
         }
 

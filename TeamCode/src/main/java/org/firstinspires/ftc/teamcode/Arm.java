@@ -42,7 +42,21 @@ public class Arm {
         claw.setPosition(0.00);
     }
 
+    public static void wristLevel() {
+        wrist.setPosition(0.55);
+    }
+
+    public static void wristScore() {
+        wrist.setPosition(1);
+    }
+
+    public static void wristIn() {
+        wrist.setPosition(0.2);
+    }
+
     public static void armFloor() {
+        wristIn();
+
         armLeft.setTargetPosition(0);
         armRight.setTargetPosition(0);
 
@@ -51,9 +65,13 @@ public class Arm {
 
         armLeft.setPower(0.25);
         armRight.setPower(0.25);
+
+        openClaw();
     }
 
     public static void armLow() {
+        wristIn();
+
         armLeft.setTargetPosition(140);
         armRight.setTargetPosition(140);
 
@@ -84,5 +102,18 @@ public class Arm {
 
         armLeft.setPower(0.25);
         armRight.setPower(0.25);
+    }
+
+    public static void upsideDown() {
+        armLeft.setTargetPosition(740);
+        armRight.setTargetPosition(740);
+
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
+
+        wrist.setPosition(0.8);
     }
 }

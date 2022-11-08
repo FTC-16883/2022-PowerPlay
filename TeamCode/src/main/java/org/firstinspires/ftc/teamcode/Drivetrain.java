@@ -56,8 +56,8 @@ public class Drivetrain {
     public static void strafe(double power) {
         leftRear.setPower(-power);
         rightRear.setPower(power);
-        leftFront.setPower(-power);
-        rightFront.setPower(power);
+        leftFront.setPower(power);
+        rightFront.setPower(-power);
     }
 
     public static void stop() {
@@ -69,9 +69,9 @@ public class Drivetrain {
 
     public static void turn(double power) {
         leftFront.setPower(power);
-        rightRear.setPower(power);
+        rightRear.setPower(-power);
         rightFront.setPower(-power);
-        leftRear.setPower(-power);
+        leftRear.setPower(power);
     }
 
     public static void encoderForward(double inches) {
@@ -107,9 +107,9 @@ public class Drivetrain {
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftFront.setTargetPosition(-ticks);
+        leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(ticks);
+        leftRear.setTargetPosition(-ticks);
         rightRear.setTargetPosition(ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -136,8 +136,8 @@ public class Drivetrain {
 
         leftFront.setTargetPosition(ticks);
         rightFront.setTargetPosition(-ticks);
-        leftRear.setTargetPosition(-ticks);
-        rightRear.setTargetPosition(ticks);
+        leftRear.setTargetPosition(ticks);
+        rightRear.setTargetPosition(-ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
