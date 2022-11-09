@@ -142,16 +142,6 @@ public class RemoteCam
             Mat loc3crop = new Mat();
             Mat baseline = new Mat();
             Mat thresholdMat = new Mat();
-            //TBD from testing
-
-            Scalar loc1_lowRange = new Scalar(255.0, 0.0, 0.0);
-            Scalar loc1_upRange = new Scalar(255.0, 0.0, 0.0);
-
-            Scalar loc2_lowRange = new Scalar(200.0, 200.0, 0.0,0.0);
-            Scalar loc2_upRange = new Scalar(255.0, 255.0, 130.0,255.0);
-
-            Scalar loc3_lowRange = new Scalar(255.0, 0.0, 0.0,0.0);
-            Scalar loc3_upRange = new Scalar(255.0, 0.0, 0.0,0.0);
 
 
             /**
@@ -203,40 +193,6 @@ public class RemoteCam
             loc3crop.release();
             yCbCrChan2Mat.release();
 
-
-            //Comparison Check 2
-            Imgproc.blur(input, thresholdMat, new Size(6, 6));
-            thresholdMat = thresholdMat.submat(rect1);
-
-            thresholdMat = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
-            Imgproc.morphologyEx(thresholdMat, thresholdMat, Imgproc.MORPH_CLOSE, baseline);
-
-            // Gets channels from given source mat
-            Core.inRange(thresholdMat, loc1_lowRange, loc1_upRange, loc1crop);
-            Core.inRange(thresholdMat, loc2_lowRange, loc2_upRange, loc2crop);
-            Core.inRange(thresholdMat, loc3_lowRange, loc3_upRange, loc3crop);
-
-            // Gets color specific values
-            loc1Percent = Core.countNonZero(loc1crop);
-            loc2Percent = Core.countNonZero(loc2crop);
-            loc3Percent = Core.countNonZero(loc3crop);
-
-            //Release video image.
-            loc1crop.release() ;
-            loc2crop.release();
-            loc3crop.release();
-            input.release();
-            baseline.release();
-
-            // maximum pixels identified for specific colors with Process 2
-            double colorId = Math.max(loc1Percent, Math.max(loc2Percent, loc3Percent));
-            if (colorId == loc1Percent) {
-                locsignalProc2 = 1;
-            } else if (colorId == loc2Percent){
-                locsignalProc2 = 2;
-            } else if (colorId == loc3Percent){
-                locsignalProc2 = 3;
-            }
 
 
             return input;

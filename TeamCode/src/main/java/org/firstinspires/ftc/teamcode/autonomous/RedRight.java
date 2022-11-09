@@ -106,21 +106,21 @@ public class RedRight extends LinearOpMode
 
         waitForStart();
         //grip cone for autonomous
-
+        Arm.closeClaw();
 
         // monitor camera to read signal for fixed time
 
 
             if (camInput.color3average > 140) {
-                telemetry.addData("Detected color is yellow :", 1);
+                telemetry.addData("Detected color is  :", 1);
 
             }
             if (camInput.color2average > 140) {
-                telemetry.addData("Detected color is red :", 2);
+                telemetry.addData("Detected color is :", 2);
 
             }
             if (camInput.color1average > 140) {
-                telemetry.addData("Detected color is blue :", 3);
+                telemetry.addData("Detected color is :", 3);
 
             }
 
@@ -135,11 +135,24 @@ public class RedRight extends LinearOpMode
         Drivetrain.encoderTurn(90);
         sleep(2000);
 
-        Drivetrain.encoderTurn(85);
-        Drivetrain.encoderForward(10);
+        /*
+        Drivetrain.encoderStrafe(40);
+        sleep(2000);
 
-        //arm coding
+       Drivetrain.encoderTurn(85);
+        sleep(1000);
 
+        Drivetrain.encoderTurn(185);
+        sleep(1000);
+
+        Drivetrain.encoderTurn(285);
+        sleep(1000);
+*/
+        Arm.armHigh();
+        sleep(1000);
+        Arm.openClaw();
+        sleep(1000);
+        Arm.closeClaw();
         sleep(1000);
 
         if (locSignal == 2){
@@ -147,29 +160,18 @@ public class RedRight extends LinearOpMode
             sleep(1000);
 
         }
+        else if (locSignal == 1) {
+            Drivetrain.encoderStrafe(26);
+            sleep(1000);
+        }
         else if (locSignal == 3) {
             Drivetrain.encoderStrafe(-26);
             sleep(1000);
         }
 
-        else if (locSignal == 1) {
-            Drivetrain.encoderStrafe(26);
-            sleep(1000);
-        }
-
-        /*
-      Drivetrain.encoderStrafe(-26);
-      sleep(1000);
-
-        Drivetrain.encoderStrafe(52);
-        sleep(1000);
-*/
-
-
 
         //scan
         Drivetrain.stop();
-
 
 
     }
