@@ -44,10 +44,16 @@ public static class RedRight extends LinearOpMode
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        
         Drivetrain.encoderForward(73);
         Drivetrain.encoderTurn(90);
         Arm.armHigh();
+
+        Drivetrain.encoderForward(24);
+        Drivetrain.encoderStrafe(-12);
+        Drivetrain.encoderForward(-2);
+        Arm.armMedium();
+        Arm.wristLevel();
         Arm.openClaw();
         sleep(2000);
 
