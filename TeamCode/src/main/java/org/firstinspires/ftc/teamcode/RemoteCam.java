@@ -22,54 +22,54 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
-import org.opencv.core.MatOfPoint;
 import org.opencv.core.Core;
 import org.opencv.core.Rect;
 import org.opencv.core.Size;
 
-public class RemoteCam
-{
+public class RemoteCam {
     public static OpenCvWebcam webcam;
     public static int location;
     public static double color1average;
     public static double color2average;
     public static double color3average;
-    public static int xCordCam= 40;
-    public static int yCordCam= 110;
-    public static int xCamWindow= 40;
-    public static int yCamWindow= 60;
+    public static int xCordCam = 140;
+    public static int yCordCam = 90;
+    public static int xCamWindow = 40;
+    public static int yCamWindow = 60;
     public static int locSignalProc1, locsignalProc2, locSignal;
     public static double loc1Percent, loc2Percent, loc3Percent;
+    public static double gPercent, bPercent, rPercent;
     public enum ParkingPosition {
         LEFT,
         CENTER,
         RIGHT
     }
-    public static ParkingPosition position = ParkingPosition.CENTER;
+    public static ParkingPosition position;
     // Percent and mat definitions
-    public static double yelPercent, greenPercent, bluePercent;
-    public RemoteCam(){}
+    public static double redPercent, greenPercent, bluePercent;
 
-    public static void init(OpenCvWebcam frontCamera){
+    public RemoteCam() {
+    }
+
+    public static void init(OpenCvWebcam frontCamera) {
         /*
          * Specify the image processing pipeline we wish to invoke upon receipt
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
          */
         RemoteCam.webcam = frontCamera;
-        RemoteCam.webcam.setPipeline(new SamplePipeline());
+        //RemoteCam.webcam.setPipeline(new SamplePipeline());
         locSignal = 0; //Set to value other than Location 1 /2/3
-
+        location=0;
+        RemoteCam.webcam.setPipeline(new SamplePipeline());
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
          * to open the camera asynchronously, and this is now the recommended way
@@ -80,11 +80,9 @@ public class RemoteCam
          * If you really want to open synchronously, the old method is still available.
          */
         frontCamera.setMillisecondsPermissionTimeout(2500); // Timeout for obtaining permission is configurable. Set before opening.
-        frontCamera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        frontCamera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
+            public void onOpened() {
                 /*
                  * Tell the webcam to start streaming images to us! Note that you must make sure
                  * the resolution you specify is supported by the camera. If it is not, an exception
@@ -105,8 +103,7 @@ public class RemoteCam
             }
 
             @Override
-            public void onError(int errorCode)
-            {
+            public void onError(int errorCode) {
                 /*
                  * This will be called if the camera could not be opened
                  */
@@ -131,8 +128,7 @@ public class RemoteCam
      * if you're doing something weird where you do need it synchronized with your OpMode thread,
      * then you will need to account for that accordingly.
      */
-    public static class SamplePipeline extends OpenCvPipeline
-    {
+    public static class SamplePipeline extends OpenCvPipeline {
         boolean viewportPaused;
 
         /*
@@ -158,10 +154,11 @@ public class RemoteCam
             //TBD from testing
 
             /*1108: add*/
-            Rect rect1 = new Rect(xCordCam, yCordCam / 4, xCamWindow, yCamWindow);
+            Rect rect1 = new Rect(xCordCam, yCordCam, xCamWindow, yCamWindow);
 
 
             /*Comparison Check 1*/
+
             Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
             Imgproc.rectangle(
                     input,
@@ -169,8 +166,8 @@ public class RemoteCam
                             xCordCam,
                             yCordCam),
                     new Point(
-                            xCordCam+ xCamWindow ,
-                            yCordCam+yCamWindow),
+                            xCordCam + xCamWindow,
+                            yCordCam + yCamWindow),
                     new Scalar(255, 255, 255), 4);
 
 
@@ -191,11 +188,10 @@ public class RemoteCam
 
 
             /*Release video image.*/
-            loc1crop.release() ;
+            loc1crop.release();
             loc2crop.release();
             loc3crop.release();
             yCbCrChan2Mat.release();
-
 
             return input;
         }
@@ -206,8 +202,7 @@ public class RemoteCam
         }
 
         @Override
-        public void onViewportTapped()
-        {
+        public void onViewportTapped() {
             /*
              * The viewport (if one was specified in the constructor) can also be dynamically "paused"
              * and "resumed". The primary use case of this is to reduce CPU, memory, and power load
@@ -222,12 +217,154 @@ public class RemoteCam
 
             viewportPaused = !viewportPaused;
 
-            if(viewportPaused)
-            {
+            if (viewportPaused) {
                 webcam.pauseViewport();
+            } else {
+                webcam.resumeViewport();
             }
-            else
-            {
+        }
+    }
+
+    public static class CameraSensor extends OpenCvPipeline {
+    /*
+    GREEN  = Parking Right
+    BLUE    = Parking left
+    RED = Parking Center
+     */
+
+        boolean viewportPaused;
+        // TOPLEFT anchor point for the bounding box
+        private static Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(145, 80);
+
+        // Width and height for the bounding box
+        public static int REGION_WIDTH = 20;
+        public static int REGION_HEIGHT = 20;
+
+        // Lower and upper boundaries for colors
+        private static final Scalar
+                lower_green_bounds = new Scalar(0, 200, 0, 255),
+                upper_green_bounds = new Scalar(30, 255, 30, 255),
+                lower_red_bounds = new Scalar(200, 200, 0, 255),
+                upper_red_bounds = new Scalar(255, 255, 30, 255),
+                lower_blue_bounds = new Scalar(0, 0, 200, 255),
+                upper_blue_bounds = new Scalar(30, 30, 255, 255);
+
+        // Color definitions
+        private final Scalar
+                RED = new Scalar(255, 255, 0),
+                GREEN = new Scalar(0, 255, 0),
+                BLUE = new Scalar(0, 0, 255);
+
+        // Percent and mat definitions
+        private Mat rMat = new Mat(), gMat = new Mat(), bMat = new Mat(), blurredMat = new Mat(), kernel = new Mat();
+
+        // Anchor point definitions
+        Point sleeve_pointA = new Point(
+                SLEEVE_TOPLEFT_ANCHOR_POINT.x,
+                SLEEVE_TOPLEFT_ANCHOR_POINT.y);
+        Point sleeve_pointB = new Point(
+                SLEEVE_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+
+        // Running variable storing the parking position
+
+
+        @Override
+        public Mat processFrame(Mat input) {
+            // Noise reduction
+
+            Imgproc.rectangle(
+                    input,
+                    new Point(
+                            SLEEVE_TOPLEFT_ANCHOR_POINT.x,
+                            SLEEVE_TOPLEFT_ANCHOR_POINT.y),
+                    new Point(
+                            SLEEVE_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                            SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT),
+                    new Scalar(255, 255, 255), 2);
+
+            Imgproc.blur(input, blurredMat, new Size(5, 5));
+            blurredMat = blurredMat.submat(new Rect(sleeve_pointA, sleeve_pointB));
+
+            // Apply Morphology
+            kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
+            Imgproc.morphologyEx(blurredMat, blurredMat, Imgproc.MORPH_CLOSE, kernel);
+
+            // Gets channels from given source mat
+            Core.inRange(blurredMat, lower_green_bounds, upper_green_bounds, gMat);
+            Core.inRange(blurredMat, lower_red_bounds, upper_red_bounds, rMat);
+            Core.inRange(blurredMat, lower_blue_bounds, upper_blue_bounds, bMat);
+
+            // Gets color specific values
+           // RemoteCam.gPercent = Core.countNonZero(gMat);
+           // RemoteCam.rPercent = Core.countNonZero(rMat);
+           // RemoteCam.bPercent = Core.countNonZero(bMat);
+
+             RemoteCam.rPercent = Core.countNonZero(rMat);
+             RemoteCam.bPercent = Core.countNonZero(bMat);
+
+            // Calculates the highest amount of pixels being covered on each side
+            double maxPercent = Math.max(RemoteCam.gPercent, Math.max(RemoteCam.rPercent, RemoteCam.bPercent));
+
+            // Checks all percentages, will highlight bounding box in camera preview
+            // based on what color is being detected
+            if (maxPercent == RemoteCam.bPercent) {
+                RemoteCam.location = 3;
+                Imgproc.rectangle(
+                        input,
+                        sleeve_pointA,
+                        sleeve_pointB,
+                        BLUE,
+                        2
+                );
+            } else if (maxPercent == RemoteCam.rPercent) {
+                RemoteCam.location = 2;
+                Imgproc.rectangle(
+                        input,
+                        sleeve_pointA,
+                        sleeve_pointB,
+                        RED,
+                        2
+                );
+            } else if (maxPercent == RemoteCam.gPercent) {
+                RemoteCam.location = 1;
+                Imgproc.rectangle(
+                        input,
+                        sleeve_pointA,
+                        sleeve_pointB,
+                        BLUE,
+                        2
+                );
+            }
+
+            // Memory cleanup
+            blurredMat.release();
+            rMat.release();
+            bMat.release();
+            gMat.release();
+            kernel.release();
+
+            return input;
+        }
+        @Override
+        public void onViewportTapped() {
+            /*
+             * The viewport (if one was specified in the constructor) can also be dynamically "paused"
+             * and "resumed". The primary use case of this is to reduce CPU, memory, and power load
+             * when you need your vision pipeline running, but do not require a live preview on the
+             * robot controller screen. For instance, this could be useful if you wish to see the live
+             * camera preview as you are initializing your robot, but you no longer require the live
+             * preview after you have finished your initialization process; pausing the viewport does
+             * not stop running your pipeline.
+             *
+             * Here we demonstrate dynamically pausing/resuming the viewport when the user taps it
+             */
+
+            viewportPaused = !viewportPaused;
+
+            if (viewportPaused) {
+                webcam.pauseViewport();
+            } else {
                 webcam.resumeViewport();
             }
         }

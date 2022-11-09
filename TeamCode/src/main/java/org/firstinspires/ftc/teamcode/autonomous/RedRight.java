@@ -117,16 +117,15 @@ public class RedRight extends LinearOpMode
         sleep(2000);
         Arm.wristIn();
 
-        // monitor camera to read signal for fixed time
-
-        if ((camInput.color3average>150)) {
+        //Siddharth M Trials:
+        if ((camInput.color1average>150)) {
             locSignal = 3;
             telemetry.addData("Detected color is blue :", 3);
-        } else if ((camInput.color2average>90)&&(camInput.color2average<120)) {
+        } else if ((camInput.color2average>90)&&(camInput.color2average<110)) {
             locSignal = 1;
             telemetry.addData("Detected color is green :", 1);
         }
-        else if ((camInput.color2average>128)&&(camInput.color2average<150)){
+        else if ((camInput.color2average>125)&&(camInput.color2average<150)){
             locSignal = 2;
             telemetry.addData("Detected color is yellow :", 2);
         }

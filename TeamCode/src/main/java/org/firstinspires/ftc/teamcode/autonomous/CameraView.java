@@ -56,7 +56,6 @@ public class CameraView extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput1.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput1.init(camInput1.webcam);
-        camInput1.position = RemoteCam.ParkingPosition.CENTER;
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -67,13 +66,32 @@ public class CameraView extends LinearOpMode {
 
         waitForStart();
 
+
         while (opModeIsActive()) {
             /*
              * Send some stats to the telemetry
              */
 
-            int locpark;
+            /*
+            if (RemoteCam.location == 3){
+                telemetry.addData("Detected color is blue :", 3);
+            }
 
+            if (RemoteCam.location == 2){
+                telemetry.addData("Detected color is red :", 2);
+            }
+            if (RemoteCam.location == 1){
+                telemetry.addData("Detected color is green :", 1);
+            }
+            telemetry.addData("color 1 value :", RemoteCam.bPercent);
+            telemetry.addData("color 2 value :", RemoteCam.rPercent);
+            telemetry.addData("color 3 value :", RemoteCam.gPercent);
+            telemetry.update();
+*/
+            int locpark;
+            int locCameraSense;
+
+            //Siddharth M Trials:
             if ((camInput1.color1average>150)) {
                 locpark = 3;
                 telemetry.addData("Detected color is blue :", 3);
@@ -91,6 +109,7 @@ public class CameraView extends LinearOpMode {
             telemetry.addData("color 2 value :", camInput1.color2average);
             telemetry.addData("color 3 value :", camInput1.color3average);
             telemetry.update();
+
             /*
              * NOTE: stopping the stream from the camera early (before the end of the OpMode
              * when it will be automatically stopped for you) *IS* supported. The "if" statement
