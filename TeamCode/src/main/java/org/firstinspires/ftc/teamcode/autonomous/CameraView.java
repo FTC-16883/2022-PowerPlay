@@ -56,7 +56,7 @@ public class CameraView extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput1.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput1.init(camInput1.webcam);
-
+        camInput1.position = RemoteCam.ParkingPosition.CENTER;
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -64,6 +64,7 @@ public class CameraView extends LinearOpMode {
         /*
          * Wait for the user to press start on the Driver Station
          */
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -72,26 +73,24 @@ public class CameraView extends LinearOpMode {
              */
 
             int locpark;
-            if (camInput1.color3average> 140){
-                telemetry.addData("Detected color is yellow :", 1);
 
+            if ((camInput1.color1average>150)) {
+                locpark = 3;
+                telemetry.addData("Detected color is blue :", 3);
+            } else if ((camInput1.color2average>90)&&(camInput1.color2average<110)) {
+                locpark = 1;
+                telemetry.addData("Detected color is green :", 1);
             }
-            if (camInput1.color2average> 140){
-                telemetry.addData("Detected color is red :", 2);
-
-            }
-            if (camInput1.color1average> 140){
-                telemetry.addData("Detected color is blue :",3);
-
+            else if ((camInput1.color2average>125)&&(camInput1.color2average<150)){
+                locpark = 2;
+                telemetry.addData("Detected color is yellow :", 2);
             }
 
 
-            telemetry.addData("color level 1", camInput1.color1average);
-            telemetry.addData("color level 2", camInput1.color2average);
-            telemetry.addData("color level 3", camInput1.color3average);
-            telemetry.addData("Pipeline time ms", camInput1.webcam.getPipelineTimeMs());
+            telemetry.addData("color 1 value :", camInput1.color1average);
+            telemetry.addData("color 2 value :", camInput1.color2average);
+            telemetry.addData("color 3 value :", camInput1.color3average);
             telemetry.update();
-
             /*
              * NOTE: stopping the stream from the camera early (before the end of the OpMode
              * when it will be automatically stopped for you) *IS* supported. The "if" statement

@@ -112,59 +112,48 @@ public class RedRight extends LinearOpMode
         waitForStart();
         //grip cone for autonomous
         Arm.wristLevel();
+
         Arm.closeClaw();
         sleep(2000);
         Arm.wristIn();
 
         // monitor camera to read signal for fixed time
 
-            if (camInput.color3average > 140) {
-                telemetry.addData("Detected color is  :", 1);
-
-            }
-            if (camInput.color2average > 140) {
-                telemetry.addData("Detected color is :", 2);
-
-            }
-            if (camInput.color1average > 140) {
-                telemetry.addData("Detected color is :", 3);
-
-            }
+        if ((camInput.color3average>150)) {
+            locSignal = 3;
+            telemetry.addData("Detected color is blue :", 3);
+        } else if ((camInput.color2average>90)&&(camInput.color2average<120)) {
+            locSignal = 1;
+            telemetry.addData("Detected color is green :", 1);
+        }
+        else if ((camInput.color2average>128)&&(camInput.color2average<150)){
+            locSignal = 2;
+            telemetry.addData("Detected color is yellow :", 2);
+        }
 
             telemetry.addData("color level 1", camInput.color1average);
             telemetry.addData("color level 2", camInput.color2average);
             telemetry.addData("color level 3", camInput.color3average);
             telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
-           // telemetry.update();
+            telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
-        Drivetrain.encoderForward(70);
-        Arm.armHigh();
-        Drivetrain.encoderTurn(100);
-
-        /*
-        Drivetrain.encoderStrafe(40);
-        sleep(2000);
-
-       Drivetrain.encoderTurn(85);
+        Drivetrain.encoderForward(46);
+        Arm.armMedium();
         sleep(1000);
-
-        Drivetrain.encoderTurn(185);
+        Drivetrain.encoderTurn(90);
         sleep(1000);
-
-        Drivetrain.encoderTurn(285);
-        sleep(1000);
-*/
         Arm.wristScore();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
-        Drivetrain.forward(-0.5);
-
+        Arm.closeClaw();
+        sleep(1000);
+        //Drivetrain.forward(-0.5);
+        Drivetrain.encoderTurn(90);
+        Drivetrain.encoderForward(13);
         if (locSignal == 2){
-            Drivetrain.encoderForward(10);
             sleep(1000);
-
         }
         else if (locSignal == 1) {
             Drivetrain.encoderStrafe(26);

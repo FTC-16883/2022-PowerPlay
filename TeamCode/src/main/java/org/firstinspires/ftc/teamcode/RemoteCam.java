@@ -41,11 +41,23 @@ public class RemoteCam
 {
     public static OpenCvWebcam webcam;
     public static int location;
-    public static double color1average;
+    public static double color                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       1average;
     public static double color2average;
     public static double color3average;
+    public static int xCordCam= 40;
+    public static int yCordCam= 110;
+    public static int xCamWindow= 40;
+    public static int yCamWindow= 60;
     public static int locSignalProc1, locsignalProc2, locSignal;
     public static double loc1Percent, loc2Percent, loc3Percent;
+    public enum ParkingPosition {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
+    public static ParkingPosition position = ParkingPosition.CENTER;
+    // Percent and mat definitions
+    public static double yelPercent, greenPercent, bluePercent;
     public RemoteCam(){}
 
     public static void init(OpenCvWebcam frontCamera){
@@ -143,25 +155,24 @@ public class RemoteCam
             Mat baseline = new Mat();
             Mat thresholdMat = new Mat();
 
+            //TBD from testing
 
-            /**
-             * NOTE: to see how to get data from your pipeline to your OpMode as well as how
-             * to change which stage of the pipeline is rendered to the viewport when it is
-             * tapped, please see {@link PipelineStageSwitchingExample}
-             */
+            /*1108: add*/
+            Rect rect1 = new Rect(xCordCam, yCordCam / 4, xCamWindow, yCamWindow);
 
-            //Comparison Check 1
+
+            /*Comparison Check 1*/
             Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);
             Imgproc.rectangle(
                     input,
                     new Point(
-                            input.cols() / 4,
-                            input.rows() / 4),
+                            xCordCam,
+                            yCordCam),
                     new Point(
-                            input.cols() /4 + 35 ,
-                            input.rows()/4  + 60),
+                            xCordCam+ xCamWindow ,
+                            yCordCam+yCamWindow),
                     new Scalar(255, 255, 255), 4);
-            Rect rect1 = new Rect(input.cols() / 4, input.rows() / 4, 35, 60);
+
 
             loc1crop = yCbCrChan2Mat.submat(rect1);
             Core.extractChannel(loc1crop, loc1crop, 2);
@@ -177,26 +188,19 @@ public class RemoteCam
             Core.extractChannel(loc3crop, loc3crop, 0);
             upperaverage = Core.mean(loc3crop);
             RemoteCam.color3average = upperaverage.val[0];
-            double colorAvg = Math.max(RemoteCam.color3average, Math.max(RemoteCam.color3average, RemoteCam.color3average));
 
-            if (colorAvg == 140) {
-                locSignalProc1 = 1;
-            } else if (colorAvg == 140){
-                locSignalProc1 = 2;
-            } else if (colorAvg == 140){
-                locSignalProc1 = 3;
-            }
 
-            //Release video image.
+            /*Release video image.*/
             loc1crop.release() ;
             loc2crop.release();
             loc3crop.release();
             yCbCrChan2Mat.release();
 
 
-
             return input;
         }
+
+
         public int getSignalLocation() {
             return locSignal;
         }
