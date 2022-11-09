@@ -50,7 +50,7 @@ public static class RedRight extends LinearOpMode
         Arm.armHigh();
 
         Drivetrain.encoderForward(24);
-        Drivetrain.encoderStrafe(-36);
+        Drivetrain.encoderStrafe(-12);
         Drivetrain.encoderForward(-2);
         Arm.armMedium();
         Arm.wristLevel();
