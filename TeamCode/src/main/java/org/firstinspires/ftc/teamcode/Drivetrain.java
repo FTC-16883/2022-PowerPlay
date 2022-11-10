@@ -151,4 +151,30 @@ public class Drivetrain {
 
         }
     }
+    //11/10: Test for forward < 12 inches
+    public static void encoderForwardFrontWheelsOnly(double inches) {
+        int ticks = (int) (inches / wheelRevolutionDistanceInches) * ticksToWheelRevolution;
+
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(ticks);
+        rightFront.setTargetPosition(ticks);
+        //leftRear.setTargetPosition(ticks);
+        //rightRear.setTargetPosition(ticks);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //leftRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //rightRear.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        forward(0.75);
+
+        while (isMoving() == true) {
+//            Telemetry.updateDrivetrainEncoders();
+        }
+    }
+
 }
