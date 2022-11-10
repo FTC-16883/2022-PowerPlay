@@ -105,18 +105,16 @@ public class RedRight extends LinearOpMode
         wrist = hardwareMap.get(Servo.class, "wrist");
 
         Arm.initAuton(armRight, armLeft, claw, wrist);
-
+        Arm.closeClaw();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
         //grip cone for autonomous
-        //Arm.wristLevel();
 
-        Arm.closeClaw();
-        sleep(2000);
         Arm.wristIn();
         sleep(1000);
+
         //Siddharth M Trials:
         if ((camInput.color1average>150)) {
             locSignal = 3;
@@ -137,35 +135,37 @@ public class RedRight extends LinearOpMode
             telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
-        Drivetrain.encoderForward(50);
-        Arm.armMedium();
+        Drivetrain.encoderStrafe(-26);
         sleep(500);
-        Drivetrain.encoderTurn(-95);
-        sleep(1000);
+        Drivetrain.encoderForward(33);
+        sleep(500);
+        Drivetrain.encoderTurn(-35);
+        sleep(500);
 
+        Arm.armHigh();
+        sleep(2000);
         Arm.wristScore();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
-        Arm.closeClaw();
+
+        Drivetrain.encoderTurn(45);
         sleep(500);
+        Drivetrain.encoderStrafe(15);
         //Drivetrain.forward(-0.5);
-        Drivetrain.encoderTurn(-95);
-        sleep(500);
         Arm.armFloor();
         sleep(500);
         Arm.wristIn();
-        Drivetrain.encoderForward(13);
         if (locSignal == 2){
+            Drivetrain.encoderStrafe(45);
             sleep(1000);
         }
         else if (locSignal == 1) {
-            Drivetrain.encoderStrafe(26);
+            Drivetrain.encoderStrafe(80);
             sleep(1000);
         }
         else if (locSignal == 3) {
-            Drivetrain.encoderStrafe(-26);
-            sleep(1000);
+            Drivetrain.stop();
         }
 
 
