@@ -39,8 +39,8 @@ import java.util.Calendar;
  * Updates 11/10: Scan and Park only functionality in Autonomous Mode (SM)
  */
 
-@Autonomous(name="AutonBaseScanToPark", group="Android Studio")
-public class AutonBaseScanToPark extends LinearOpMode
+@Autonomous(name="AutonBaseScanToParkRRBL", group="Android Studio")
+public class AutonBaseScanToParkRRBL extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
@@ -67,7 +67,7 @@ public class AutonBaseScanToPark extends LinearOpMode
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput.init(camInput.webcam);
-
+        camInput.xCordCam = 120;
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
