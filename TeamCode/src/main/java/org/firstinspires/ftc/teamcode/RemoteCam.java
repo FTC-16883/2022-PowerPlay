@@ -59,7 +59,7 @@ public class RemoteCam {
     public static double color1average;
     public static double color2average;
     public static double color3average;
-    public static int xCordCam = 140;
+    public static int xCordCam = 236;
     public static int yCordCam = 90;
     public static int xCamWindow = 40;
     public static int yCamWindow = 60;

@@ -36,7 +36,7 @@ import java.util.Calendar;
  * After the "PLAY" button is pressed, all the code after the "waitForStart()" function is ran
  *
  * Once copied: Complete the checklist:
- * Updates 11/10: Scan and Park only functionality in Autonomous Mode
+ * Updates 11/10: Scan and Park only functionality in Autonomous Mode (SM)
  */
 
 @Autonomous(name="AutonBaseScanToPark", group="Android Studio")

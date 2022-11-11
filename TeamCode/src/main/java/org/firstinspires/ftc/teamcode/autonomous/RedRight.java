@@ -92,11 +92,11 @@ public class RedRight extends LinearOpMode
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput.init(camInput.webcam);
-
-
+        camInput.xCordCam = 180;
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
@@ -135,11 +135,19 @@ public class RedRight extends LinearOpMode
             telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
+        /*
         Drivetrain.encoderStrafe(-26);
         sleep(500);
         Drivetrain.encoderForward(33);
         sleep(500);
-        Drivetrain.encoderTurn(-35);
+        Drivetrain.encoderTurn(-40);
+        sleep(500);
+        */
+        Drivetrain.encoderForward(32);
+        sleep(500);
+        Drivetrain.encoderStrafe(-39);
+        sleep(500);
+        Drivetrain.encoderTurn(-45);
         sleep(500);
 
         Arm.armHigh();
@@ -151,17 +159,19 @@ public class RedRight extends LinearOpMode
 
         Drivetrain.encoderTurn(45);
         sleep(500);
-        Drivetrain.encoderStrafe(15);
+
         //Drivetrain.forward(-0.5);
         Arm.armFloor();
         sleep(500);
+        Arm.closeClaw();
+        sleep(500);
         Arm.wristIn();
         if (locSignal == 2){
-            Drivetrain.encoderStrafe(45);
+            Drivetrain.encoderStrafe(36);
             sleep(1000);
         }
         else if (locSignal == 1) {
-            Drivetrain.encoderStrafe(80);
+            Drivetrain.encoderStrafe(67);
             sleep(1000);
         }
         else if (locSignal == 3) {
