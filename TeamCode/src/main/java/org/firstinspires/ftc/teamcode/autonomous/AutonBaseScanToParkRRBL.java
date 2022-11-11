@@ -115,11 +115,11 @@ public class AutonBaseScanToParkRRBL extends LinearOpMode
             sleep(1000);
         }
         else if (locSignal == 1) {
-            Drivetrain.encoderStrafe(-28);
+            Drivetrain.encoderStrafe(-30);
             sleep(1000);
         }
         else if (locSignal == 3) {
-            Drivetrain.encoderStrafe(28);
+            Drivetrain.encoderStrafe(30);
             sleep(1000);
         }
 
