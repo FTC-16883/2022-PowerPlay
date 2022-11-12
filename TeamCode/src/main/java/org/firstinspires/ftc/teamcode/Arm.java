@@ -75,7 +75,7 @@ public class Arm {
     }
 
     public static void armFloor() {
-        wristLevel();
+        wristIn();
 
         armLeft.setTargetPosition(0);
         armRight.setTargetPosition(0);

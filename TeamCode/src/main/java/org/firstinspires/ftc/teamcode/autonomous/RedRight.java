@@ -67,7 +67,7 @@ import java.util.Calendar;
 
  */
 
-@Autonomous(name="RedRight", group="Android Studio")
+@Autonomous(name="RedLeft", group="Android Studio")
 public class RedRight extends LinearOpMode
 {
     // Declare every variable being used in the program here.
@@ -92,72 +92,71 @@ public class RedRight extends LinearOpMode
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput.init(camInput.webcam);
-        camInput.xCordCam = 180;
+
+
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
         armLeft = hardwareMap.get(DcMotorEx.class, "armLeft");
         armRight = hardwareMap.get(DcMotorEx.class, "armRight");
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
-
+        camInput.xCordCam = 120;
         Arm.initAuton(armRight, armLeft, claw, wrist);
-        Arm.closeClaw();
+        Arm.closeClaw();//grip cone for autonomous
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
-        //grip cone for autonomous
+
 
         Arm.wristIn();
-        sleep(1000);
+        double color1 = camInput.color1average;
+        double color2 = camInput.color2average;
+        sleep(100);
 
         //Siddharth M Trials:
-        if ((camInput.color1average>150)) {
+        if ((color1>150)) {
             locSignal = 3;
-            telemetry.addData("Detected color is blue :", 3);
-        } else if ((camInput.color2average>90)&&(camInput.color2average<110)) {
+            telemetry.addData("Detected color is blue", 3);
+        } else if ((color2>90)&&(color2<110)) {
             locSignal = 1;
-            telemetry.addData("Detected color is green :", 1);
+            telemetry.addData("Detected color is green", 1);
         }
-        else if ((camInput.color2average>125)&&(camInput.color2average<140)){
+        else if ((color2>125)&&(color2<140)){
             locSignal = 2;
-            telemetry.addData("Detected color is yellow :", 2);
+            telemetry.addData("Detected color is yellow", 2);
         }
 
-            telemetry.addData("color level 1", camInput.color1average);
-            telemetry.addData("color level 2", camInput.color2average);
-            telemetry.addData("color level 3", camInput.color3average);
-            telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
-            telemetry.update();
+        telemetry.addData("color level 1", color1);
+        telemetry.addData("color level 2", color2);
+        telemetry.addData("color level 3", camInput.color3average);
+        telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
+        telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
-        /*
-        Drivetrain.encoderStrafe(-26);
+        Drivetrain.encoderForward(34);
         sleep(500);
-        Drivetrain.encoderForward(33);
+        Drivetrain.encoderStrafe(36);
         sleep(500);
-        Drivetrain.encoderTurn(-40);
-        sleep(500);
-        */
-        Drivetrain.encoderForward(32);
-        sleep(500);
-        Drivetrain.encoderStrafe(-36);
-        sleep(500);
-        Drivetrain.encoderTurn(-45);
+        Drivetrain.encoderTurn(40);
         sleep(500);
 
         Arm.armHigh();
         sleep(2000);
+
+        Drivetrain.moveForwardManual(0.4);
+        sleep(100);
+
         Arm.wristScore();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
+        Arm.wristIn();
 
-        Drivetrain.encoderTurn(45);
+        Drivetrain.encoderTurn(-40);
         sleep(500);
 
         //Drivetrain.forward(-0.5);
@@ -167,17 +166,17 @@ public class RedRight extends LinearOpMode
         sleep(500);
         Arm.wristIn();
         if (locSignal == 2){
-            Drivetrain.encoderStrafe(36);
+            Drivetrain.encoderStrafe(-34);
             sleep(1000);
         }
         else if (locSignal == 1) {
-            Drivetrain.encoderStrafe(67);
-            sleep(1000);
-        }
-        else if (locSignal == 3) {
             Drivetrain.stop();
         }
+        else if (locSignal == 3) {
+            Drivetrain.encoderStrafe(-64);
+            sleep(1000);
 
+        }
 
         //scan
         Drivetrain.stop();
