@@ -39,8 +39,9 @@ import java.util.Calendar;
  * Updates 11/10: Scan and Park only functionality in Autonomous Mode (SM)
  */
 
-@Autonomous(name="AutonBaseScanToParkRRBL", group="Android Studio")
-public class AutonBaseScanToParkRRBL extends LinearOpMode
+@Autonomous(name="AutonBaseScanToParkRLBR", group="Android Studio")
+
+public class AutonBaseScantoParkRLBR extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();

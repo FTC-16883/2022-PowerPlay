@@ -137,7 +137,7 @@ public class blueRight extends LinearOpMode
         camInput.webcam.pauseViewport();// Pause image for processing
         Drivetrain.encoderForward(34);
         sleep(500);
-        Drivetrain.encoderStrafe(39);
+        Drivetrain.encoderStrafe(36);
         sleep(500);
         Drivetrain.encoderTurn(45);
         sleep(500);
