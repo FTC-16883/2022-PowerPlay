@@ -149,6 +149,7 @@ public class RedRight extends LinearOpMode
 
         Drivetrain.moveForwardManual(0.4);
         sleep(100);
+        Drivetrain.stop();
 
         Arm.wristScore();
         sleep(1000);
