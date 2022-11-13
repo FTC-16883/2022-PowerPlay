@@ -119,15 +119,16 @@ public class RedLeft extends LinearOpMode
         //Siddharth M Trials:
         if ((color1>150)) {
             locSignal = 3;
-            telemetry.addData("Detected color is blue", 3);
-        } else if ((color2>90)&&(color2<110)) {
+            telemetry.addData("Detected color is blue :", 3);
+        } else if ((color2>75)&&(color2<110)) {
             locSignal = 1;
-            telemetry.addData("Detected color is green", 1);
+            telemetry.addData("Detected color is green :", 1);
         }
-        else if ((color2>125)&&(color2<140)){
+        else if ((color2>120)&&(color2<145)){
             locSignal = 2;
-            telemetry.addData("Detected color is yellow", 2);
+            telemetry.addData("Detected color is yellow :", 2);
         }
+
 
         telemetry.addData("color level 1", color1);
         telemetry.addData("color level 2", color2);
@@ -166,7 +167,7 @@ public class RedLeft extends LinearOpMode
         sleep(500);
         Arm.wristIn();
         if (locSignal == 2){
-            Drivetrain.encoderStrafe(34);
+            Drivetrain.encoderStrafe(36);
             sleep(1000);
         }
         else if (locSignal == 3) {

@@ -41,6 +41,13 @@ package org.firstinspires.ftc.teamcode;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/*
+ * @author Sandeep M/Siddharth M
+ *
+ * This file is a OpenCV and Pipeline Scanning , A Operation Mode that runs line by Line
+ * When deployed, this class is part of "Autonomous" mode to support scanning.
+ */
+
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -61,8 +68,8 @@ public class RemoteCam {
     public static double color3average;
     public static int xCordCam = 236;
     public static int yCordCam = 90;
-    public static int xCamWindow = 40;
-    public static int yCamWindow = 60;
+    public static int xCamWindow = 20;
+    public static int yCamWindow = 40;
     public static int locSignalProc1, locsignalProc2, locSignal;
     public static double loc1Percent, loc2Percent, loc3Percent;
     public static double gPercent, bPercent, rPercent;

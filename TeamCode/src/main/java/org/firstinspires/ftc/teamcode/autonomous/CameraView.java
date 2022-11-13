@@ -75,7 +75,7 @@ public class CameraView extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput1.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput1.init(camInput1.webcam);
-
+        camInput1.xCordCam = 120;
         telemetry.addLine("Waiting for start");
         telemetry.update();
 
@@ -84,7 +84,10 @@ public class CameraView extends LinearOpMode {
          */
 
         waitForStart();
+        
+        
 
+        camInput1.xCordCam = 120;
 
         while (opModeIsActive()) {
             /*
@@ -114,11 +117,11 @@ public class CameraView extends LinearOpMode {
             if ((camInput1.color1average>150)) {
                 locpark = 3;
                 telemetry.addData("Detected color is blue :", 3);
-            } else if ((camInput1.color2average>90)&&(camInput1.color2average<110)) {
+            } else if ((camInput1.color2average>75)&&(camInput1.color2average<110)) {
                 locpark = 1;
                 telemetry.addData("Detected color is green :", 1);
             }
-            else if ((camInput1.color2average>125)&&(camInput1.color2average<150)){
+            else if ((camInput1.color2average>120)&&(camInput1.color2average<145)){
                 locpark = 2;
                 telemetry.addData("Detected color is yellow :", 2);
             }
