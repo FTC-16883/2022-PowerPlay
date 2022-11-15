@@ -172,14 +172,12 @@ public class RedRight extends LinearOpMode
             sleep(1000);
         }
         else if (locSignal == 1) {
-            Drivetrain.stop();
-        }
-        else if (locSignal == 3) {
             Drivetrain.encoderStrafe(-64);
             sleep(1000);
-
         }
-
+        else if (locSignal == 3) {
+            Drivetrain.stop();
+        }
         //scan
         Drivetrain.stop();
 

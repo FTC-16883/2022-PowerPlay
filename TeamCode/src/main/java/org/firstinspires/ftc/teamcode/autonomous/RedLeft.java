@@ -171,11 +171,11 @@ public class RedLeft extends LinearOpMode
             sleep(1000);
         }
         else if (locSignal == 3) {
-            Drivetrain.stop();
-        }
-        else if (locSignal == 1) {
             Drivetrain.encoderStrafe(64);
             sleep(1000);
+        }
+        else if (locSignal == 1) {
+            Drivetrain.stop();
         }
 
 
