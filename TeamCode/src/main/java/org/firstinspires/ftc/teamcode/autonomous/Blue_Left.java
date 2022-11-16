@@ -67,8 +67,8 @@ import java.util.Calendar;
 
  */
 
-@Autonomous(name="BlueLeft", group="Android Studio")
-public class blueRight extends LinearOpMode
+@Autonomous(name="Blue_Left", group="Android Studio")
+public class Blue_Left extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();

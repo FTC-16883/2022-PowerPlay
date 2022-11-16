@@ -67,8 +67,8 @@ import java.util.Calendar;
 
  */
 
-@Autonomous(name="BlueRight", group="Android Studio")
-public class BlueLeft extends LinearOpMode
+@Autonomous(name="Red_Right", group="Android Studio")
+public class Red_Right extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
@@ -111,7 +111,6 @@ public class BlueLeft extends LinearOpMode
 
         waitForStart();
         //grip cone for autonomous
-
         Arm.wristIn();
         double color1 = camInput.color1average;
         double color2 = camInput.color2average;
@@ -129,7 +128,6 @@ public class BlueLeft extends LinearOpMode
             locSignal = 2;
             telemetry.addData("Detected color is yellow :", 2);
         }
-
 
 
         telemetry.addData("color level 1", color1);
@@ -179,7 +177,6 @@ public class BlueLeft extends LinearOpMode
         else if (locSignal == 1) {
             Drivetrain.stop();
         }
-
 
         //scan
         Drivetrain.stop();

@@ -67,8 +67,8 @@ import java.util.Calendar;
 
  */
 
-@Autonomous(name="RedLeft", group="Android Studio")
-public class RedRight extends LinearOpMode
+@Autonomous(name="Red_Left", group="Android Studio")
+public class Red_Left extends LinearOpMode
 {
     // Declare every variable being used in the program here.
     private ElapsedTime runtime = new ElapsedTime();
@@ -174,9 +174,12 @@ public class RedRight extends LinearOpMode
         else if (locSignal == 1) {
             Drivetrain.encoderStrafe(-64);
             sleep(1000);
+
+
         }
         else if (locSignal == 3) {
             Drivetrain.stop();
+
         }
         //scan
         Drivetrain.stop();
