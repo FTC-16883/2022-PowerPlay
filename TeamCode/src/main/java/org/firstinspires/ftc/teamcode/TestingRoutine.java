@@ -138,6 +138,10 @@ public class TestingRoutine extends LinearOpMode
             if (gamepad1.square) {
                 Drivetrain.encoderStrafe(-36);
             }
+
+            if (gamepad2.square) {
+                //Arm.upsideDown();
+            }
         }
 
     }

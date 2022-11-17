@@ -123,4 +123,18 @@ public class Arm {
         armLeft.setPower(0.25);
         armRight.setPower(0.25);
     }
+
+    public static void upsideDown() {
+        armLeft.setTargetPosition(740);
+        armRight.setTargetPosition(740);
+
+        armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        armLeft.setPower(0.25);
+        armRight.setPower(0.25);
+
+        wrist.setPosition(0.8);
+    }
+
 }
