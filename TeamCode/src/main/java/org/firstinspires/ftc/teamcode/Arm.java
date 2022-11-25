@@ -114,8 +114,8 @@ public class Arm {
     }
 
     public static void armHigh() {
-        armLeft.setTargetPosition(570);
-        armRight.setTargetPosition(570);
+        armLeft.setTargetPosition(520);
+        armRight.setTargetPosition(520);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);

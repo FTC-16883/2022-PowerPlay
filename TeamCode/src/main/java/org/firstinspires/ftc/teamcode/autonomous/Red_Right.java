@@ -147,9 +147,9 @@ public class Red_Right extends LinearOpMode
         Arm.armHigh();
         sleep(2000);
 
-        Drivetrain.moveForwardManual(0.4);
-        sleep(100);
-        Drivetrain.stop();
+        //Drivetrain.moveForwardManual(0.4);
+       // sleep(100);
+        //Drivetrain.stop();
 
         Arm.wristScore();
         sleep(1000);
