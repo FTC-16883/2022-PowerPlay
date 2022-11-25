@@ -1,6 +1,7 @@
 
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -40,6 +41,8 @@ public class AutonBase extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
+    public static Rev2mDistanceSensor frontSensor;
+
     public static DcMotorEx armRight;
     public static DcMotorEx armLeft;
     public static Servo claw;
@@ -59,7 +62,7 @@ public class AutonBase extends LinearOpMode
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
 
-        giArm.initAuton(armRight, armLeft, claw, wrist);
+        Arm.initAuton(armRight, armLeft, claw, wrist);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

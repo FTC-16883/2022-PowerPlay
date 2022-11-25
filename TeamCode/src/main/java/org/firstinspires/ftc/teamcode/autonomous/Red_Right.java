@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -40,6 +41,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Arm;
 import org.firstinspires.ftc.teamcode.Drive;
 import org.firstinspires.ftc.teamcode.Drivetrain;
@@ -76,6 +78,7 @@ public class Red_Right extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
+    public static Rev2mDistanceSensor frontSensor;
 
     public static DcMotorEx armRight;
     public static DcMotorEx armLeft;
@@ -92,11 +95,7 @@ public class Red_Right extends LinearOpMode
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        camInput.init(camInput.webcam);
-        camInput.xCordCam = 180;
+        frontSensor = hardwareMap.get(Rev2mDistanceSensor.class, "frontSensor");
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
@@ -105,6 +104,12 @@ public class Red_Right extends LinearOpMode
         claw = hardwareMap.get(Servo.class, "claw");
         wrist = hardwareMap.get(Servo.class, "wrist");
         Arm.initAuton(armRight, armLeft, claw, wrist);
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        camInput.init(camInput.webcam);
+        camInput.xCordCam = 120;
+
         Arm.closeClaw();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -129,7 +134,6 @@ public class Red_Right extends LinearOpMode
             telemetry.addData("Detected color is yellow :", 2);
         }
 
-
         telemetry.addData("color level 1", color1);
         telemetry.addData("color level 2", color2);
         telemetry.addData("color level 3", camInput.color3average);
@@ -141,15 +145,26 @@ public class Red_Right extends LinearOpMode
         sleep(500);
         Drivetrain.encoderStrafe(-36);
         sleep(500);
-        Drivetrain.encoderTurn(-40);
+        Drivetrain.encoderTurn(-38);
         sleep(500);
 
         Arm.armHigh();
         sleep(2000);
 
-        //Drivetrain.moveForwardManual(0.4);
-       // sleep(100);
-        //Drivetrain.stop();
+        telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
+        telemetry.update();
+
+        while (frontSensor.getDistance(DistanceUnit.MM) < 375) {
+            Drivetrain.moveForwardManual(-0.3);
+            telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
+            telemetry.update();
+        }
+        while (frontSensor.getDistance(DistanceUnit.MM) > 400) {
+            Drivetrain.moveForwardManual(0.3);
+            telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
+            telemetry.update();
+        }
+        Drivetrain.stop();
 
         Arm.wristScore();
         sleep(1000);
@@ -157,7 +172,7 @@ public class Red_Right extends LinearOpMode
         sleep(1000);
         Arm.wristIn();
 
-        Drivetrain.encoderTurn(40);
+        Drivetrain.encoderTurn(38);
         sleep(500);
 
         //Drivetrain.forward(-0.5);

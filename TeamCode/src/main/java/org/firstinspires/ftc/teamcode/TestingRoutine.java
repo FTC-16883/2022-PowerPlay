@@ -29,12 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * This file is a LinearOpMode, A Operation Mode that runs line by Line
@@ -53,6 +56,7 @@ public class TestingRoutine extends LinearOpMode
     public static DcMotorEx rightFront;
     public static DcMotorEx leftRear;
     public static DcMotorEx rightRear;
+    public static Rev2mDistanceSensor frontSensor;
     public static DcMotorEx armRight;
     public static DcMotorEx armLeft;
     public static Servo claw;
@@ -66,6 +70,7 @@ public class TestingRoutine extends LinearOpMode
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
+        frontSensor = hardwareMap.get(Rev2mDistanceSensor.class, "frontSensor");
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
