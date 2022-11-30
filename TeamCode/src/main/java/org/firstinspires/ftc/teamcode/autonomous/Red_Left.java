@@ -165,7 +165,7 @@ public class Red_Left extends LinearOpMode
         }
         Drivetrain.stop();
 
-        Arm.wristScore();
+        Arm.wristScoreAuton();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
@@ -180,6 +180,8 @@ public class Red_Left extends LinearOpMode
         Arm.closeClaw();
         sleep(500);
         Arm.wristIn();
+        Drivetrain.moveForwardManual(0.3);
+        sleep(500);
         if (locSignal == 2){
             Drivetrain.encoderStrafe(-36);
             sleep(1000);

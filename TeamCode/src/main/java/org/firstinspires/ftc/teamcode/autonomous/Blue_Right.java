@@ -108,7 +108,7 @@ public class Blue_Right extends LinearOpMode
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camInput.webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         camInput.init(camInput.webcam);
-        camInput.xCordCam = 120;
+        camInput.xCordCam = 180;
 
         Arm.closeClaw();
         telemetry.addData("Status", "Initialized");
@@ -146,7 +146,7 @@ public class Blue_Right extends LinearOpMode
         sleep(500);
         Drivetrain.encoderStrafe(-36);
         sleep(500);
-        Drivetrain.encoderTurn(-38);
+        Drivetrain.encoderTurn(-46);
         sleep(500);
 
         Arm.armHigh();
@@ -155,25 +155,25 @@ public class Blue_Right extends LinearOpMode
         telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
         telemetry.update();
 
-        while (frontSensor.getDistance(DistanceUnit.MM) < 375) {
+        while (frontSensor.getDistance(DistanceUnit.MM) < 345) {
             Drivetrain.moveForwardManual(-0.3);
             telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
             telemetry.update();
         }
-        while (frontSensor.getDistance(DistanceUnit.MM) > 400) {
+        while (frontSensor.getDistance(DistanceUnit.MM) > 375) {
             Drivetrain.moveForwardManual(0.3);
             telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
             telemetry.update();
         }
         Drivetrain.stop();
 
-        Arm.wristScore();
+        Arm.wristScoreAuton();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);
         Arm.wristIn();
 
-        Drivetrain.encoderTurn(38);
+        Drivetrain.encoderTurn(46);
         sleep(500);
 
         //Drivetrain.forward(-0.5);
@@ -182,6 +182,8 @@ public class Blue_Right extends LinearOpMode
         Arm.closeClaw();
         sleep(500);
         Arm.wristIn();
+        Drivetrain.moveForwardManual(0.3);
+        sleep(500);
         if (locSignal == 2){
             Drivetrain.encoderStrafe(36);
             sleep(1000);

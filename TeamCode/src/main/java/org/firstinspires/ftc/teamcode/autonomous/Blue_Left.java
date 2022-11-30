@@ -167,7 +167,7 @@ public class Blue_Left extends LinearOpMode
         }
         Drivetrain.stop();
 
-        Arm.wristScore();
+        Arm.wristScoreAuton();
         sleep(1000);
         Arm.openClaw();
         sleep(1000);

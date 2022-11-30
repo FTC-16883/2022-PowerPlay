@@ -67,7 +67,11 @@ public class Arm {
     }
 
     public static void wristScore() {
-        wrist.setPosition(1);
+        wrist.setPosition(1.2);
+    }
+
+    public static void wristScoreAuton() {
+        wrist.setPosition(1.0);
     }
 
     public static void wristIn() {
@@ -103,8 +107,8 @@ public class Arm {
     }
 
     public static void armMedium() {
-        armLeft.setTargetPosition(360);
-        armRight.setTargetPosition(360);
+        armLeft.setTargetPosition(380);
+        armRight.setTargetPosition(380);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -114,8 +118,8 @@ public class Arm {
     }
 
     public static void armHigh() {
-        armLeft.setTargetPosition(520);
-        armRight.setTargetPosition(520);
+        armLeft.setTargetPosition(570);
+        armRight.setTargetPosition(570);
 
         armLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         armRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
