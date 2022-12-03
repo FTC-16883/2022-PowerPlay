@@ -153,7 +153,7 @@ public class Red_Left extends LinearOpMode
         telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
         telemetry.update();
 
-        while (frontSensor.getDistance(DistanceUnit.MM) < 375) {
+        while (frontSensor.getDistance(DistanceUnit.MM) < 340) {
             Drivetrain.moveForwardManual(-0.3);
             telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
             telemetry.update();

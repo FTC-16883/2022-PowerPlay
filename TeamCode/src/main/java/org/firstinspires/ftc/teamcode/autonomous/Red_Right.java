@@ -172,7 +172,7 @@ public class Red_Right extends LinearOpMode
         sleep(1000);
         Arm.wristIn();
 
-        Drivetrain.encoderTurn(46;
+        Drivetrain.encoderTurn(46);
         sleep(500);
 
         //Drivetrain.forward(-0.5);
