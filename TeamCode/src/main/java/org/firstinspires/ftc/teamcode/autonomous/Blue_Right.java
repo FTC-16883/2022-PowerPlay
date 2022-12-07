@@ -139,6 +139,7 @@ public class Blue_Right extends LinearOpMode
         telemetry.addData("color level 2", color2);
         telemetry.addData("color level 3", camInput.color3average);
         telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
+        telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
         telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
