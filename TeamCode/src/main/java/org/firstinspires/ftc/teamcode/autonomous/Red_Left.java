@@ -137,7 +137,7 @@ public class Red_Left extends LinearOpMode
         telemetry.addData("color level 2", color2);
         telemetry.addData("color level 3", camInput.color3average);
         telemetry.addData("Pipeline time ms", camInput.webcam.getPipelineTimeMs());
-        telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
+        //telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
         telemetry.update();
 
         camInput.webcam.pauseViewport();// Pause image for processing
@@ -154,13 +154,13 @@ public class Red_Left extends LinearOpMode
         telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
         telemetry.update();
 
-        while (frontSensor.getDistance(DistanceUnit.MM) < 340) {
-            Drivetrain.moveForwardManual(-0.3);
+        while (frontSensor.getDistance(DistanceUnit.MM) < 350) {
+            Drivetrain.moveForwardManual(-0.25);
             telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
             telemetry.update();
         }
-        while (frontSensor.getDistance(DistanceUnit.MM) > 400) {
-            Drivetrain.moveForwardManual(0.3);
+        while (frontSensor.getDistance(DistanceUnit.MM) > 385) {
+            Drivetrain.moveForwardManual(0.25);
             telemetry.addData("Distance (mm)", frontSensor.getDistance(DistanceUnit.MM));
             telemetry.update();
         }
