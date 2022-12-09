@@ -141,4 +141,13 @@ public class Arm {
         wrist.setPosition(0.8);
     }
 
+    public static void wristPickupStackLow() {
+        openClaw();
+        wrist.setPosition(0.7);
+    }
+    public static void wristPickupStackHigh() {
+        openClaw();
+        wrist.setPosition(0.4);
+    }
+
 }

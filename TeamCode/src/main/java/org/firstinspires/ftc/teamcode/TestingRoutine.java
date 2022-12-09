@@ -136,6 +136,7 @@ public class TestingRoutine extends LinearOpMode
                 Arm.armMedium();
             }
 
+
             if (gamepad1.circle) {
                 Drivetrain.encoderStrafe(36);
             }
@@ -144,8 +145,12 @@ public class TestingRoutine extends LinearOpMode
                 Drivetrain.encoderStrafe(-36);
             }
 
-            if (gamepad2.square) {
-                //Arm.upsideDown();
+            if (gamepad2.share) {
+                Arm.wristPickupStackHigh();
+            }
+
+            if (gamepad2.options) {
+                Arm.wristPickupStackLow();
             }
         }
 
