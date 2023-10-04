@@ -1,3 +1,5 @@
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -33,7 +35,7 @@ public class Controller extends LinearOpMode {
             rightFront.setPower((gamepad1.left_stick_y) + (gamepad1.right_stick_x) + (gamepad1.left_stick_x));
             leftRear.setPower((gamepad1.left_stick_y) + (gamepad1.right_stick_x) + (-gamepad1.left_stick_x));
             rightRear.setPower((gamepad1.left_stick_y) + (-gamepad1.right_stick_x) + (gamepad1.left_stick_x));
-            droneLauncher.setPower(gamepad1.triangle);
+            droneLauncher.setPower(gamepad1.right_trigger);
             // Makes gamepad1 sticks correlate to different functions. like strafing, turning and going forward
 
         }
