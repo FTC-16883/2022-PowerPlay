@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Drivetrain;
@@ -21,9 +22,14 @@ public class Controller extends LinearOpMode {
     public static DcMotorEx rightRobotArm;
     public static DcMotorEx armExtender;
     public static DcMotorEx droneLauncher;
+    public static Servo clawLeft;
+    public static Servo clawRight;
+    public static Servo wrist;
 
 
-    
+
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -37,6 +43,9 @@ public class Controller extends LinearOpMode {
         rightRobotArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armExtender = hardwareMap.get(DcMotorEx.class, "armExtender");
         droneLauncher = hardwareMap.get(DcMotorEx.class, "droneLauncher");
+        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
+        clawRight = hardwareMap.get(Servo.class, "clawRight");
+        wrist = hardwareMap.get(Servo.class, "wrist");
 
         Drivetrain.init(leftFront, rightFront, leftRear, rightRear);
 
@@ -57,9 +66,15 @@ public class Controller extends LinearOpMode {
             leftRobotArm.setPower(gamepad2.left_stick_y);
             rightRobotArm.setPower(-gamepad2.left_stick_y);
             armExtender.setPower(-gamepad2.right_stick_y);
+            while(gamepad2.left_bumper) {
+                Servo.setPower(-1);
+            }
 
-
-            //Gamepad1 sticks correlate to different functions. like strafing, turning and going forward
+            while(gamepad2.right_bumper) {
+                Servo.setPower(1);
+                }
+            }
+        //Gamepad1 sticks correlate to different functions. like strafing, turning and going forward
 
 
         }
